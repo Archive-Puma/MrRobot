@@ -12,5 +12,6 @@ jobs:
     - name: Test
       run: cargo test --verbose
     - uses: actions/upload-artifact@v1
-      name: mrrobot-amd64
-      path: target/release/mrrobot
+      with:
+        name: mrrobot-amd64
+        path: target/release/mrrobot
