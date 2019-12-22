@@ -8,6 +8,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --release --verbose
     - name: Test
       run: cargo test --verbose
+    - uses: actions/upload-artifact@v1
+      name: mrrobot-amd64
+      path: target/release/mrrobot
