@@ -1,0 +1,12 @@
+version: 1
+hack:
+  - target:
+      type: url
+      url: http://fsundays.com
+      port: 80
+    steps:
+      - robots.txt
+  - target:
+      type: file
+      file: ./composer.yml
+

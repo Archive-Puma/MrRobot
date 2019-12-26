@@ -1,10 +1,10 @@
-// external crates (argument parser
+// external crates (argument parser)
 extern crate clap;
 use clap::{App,Arg,AppSettings};
 pub use clap::ArgMatches as Arguments;
 
 pub fn get
-() -> Arguments <'static>
+() -> Arguments<'static>
 {
 	return App::new("Mr.Robot")
 		.version("1.0.0")

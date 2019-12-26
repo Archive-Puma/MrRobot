@@ -13,7 +13,11 @@ pub enum MrError
 	ComposerWrongExtension,
 	ComposerWrongYamlFormat,
 	ComposerNoVersion,
-	ComposerWrongVersion
+	ComposerWrongVersion,
+	WorkNoTarget,
+	WorkWrongTarget,
+
+	Unimplemented
 }
 
 impl MrError
@@ -28,7 +32,11 @@ impl MrError
 			MrError::ComposerWrongExtension     => "The composer has no YAML extension",
 			MrError::ComposerWrongYamlFormat    => "YAML syntax error in composer",
 			MrError::ComposerNoVersion          => "Numeric attribute 'version' not specified in composer",
-			MrError::ComposerWrongVersion       => "Numeric attribute 'version' has a wrong value (should be: 1)"
+			MrError::ComposerWrongVersion       => "Numeric attribute 'version' has a wrong value (should be: 1)",
+			MrError::WorkNoTarget               => "Attribute 'target' not specified in composer",
+			MrError::WorkWrongTarget            => "Attribute 'target' has a wrong value (should be domain, file, ip, ipv4, ipv6 or url)",
+
+			MrError::Unimplemented              => "Error not implemented yet"
 		}
 	}
 }
