@@ -26,7 +26,7 @@ fn get_target
 		Some(route) => Ok(route)
 	}?);
 
-	Ok(Target{ kind: kind, route: route })
+	Ok(Target::new(kind,route))
 }
 
 pub fn validate
@@ -50,7 +50,7 @@ pub fn validate
 	{
 		// Check if the 'target' key exists
 		let target_key: &Yaml = &hack_value["target"];
-		if target_key.is_badvalue() { throw(MrError::Unimplemented)?; }
+		if target_key.is_badvalue() { throw(MrError::WorkNoTarget)?; }
 
 		// Parse the target type
 		let work: Work = Work { target: get_target(target_key)? };

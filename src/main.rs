@@ -9,7 +9,6 @@ use composer::validator::validate;
 use environment::arguments;
 use environment::arguments::Arguments;
 use environment::mrerror::Result;
-use worker::work::Work;
 
 fn main
 () -> ()
@@ -29,7 +28,7 @@ fn entrypoint
 	let composer: &str = arguments.value_of("composer").unwrap();
 	// Parse the composer
 	let data: &Yaml = &read(composer)?;
-	let work = validate(data)?;
+	let _work: () = validate(data)?;
 
 	Ok(())
 }
