@@ -8,4 +8,5 @@ edition = "2018"
 
 [dependencies]
 clap = "2.33.0"
+reqwest = "0.9.24"
 yaml-rust = "0.4.3"

@@ -3,10 +3,8 @@ extern crate clap;
 use clap::{App,Arg,AppSettings};
 pub use clap::ArgMatches as Arguments;
 
-pub fn get
-() -> Arguments<'static>
-{
-	return App::new("Mr.Robot")
+pub fn get_arguments() -> Arguments<'static> {
+	App::new("Mr.Robot")
 		.version("1.0.0")
 		.author("Kike Fontán (@CosasDePuma) <kikefontanlorenzo@gmail.com>")
 		.about("A robot to automate the hacking process")
@@ -22,7 +20,7 @@ pub fn get
 				.required(true)
 				.takes_value(true)
 				.help("Specifies the composer"))
-		.get_matches();
+		.get_matches()
 }
 
 /* Documentation

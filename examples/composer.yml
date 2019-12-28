@@ -1,8 +1,5 @@
 version: 1
-hack:
-  - target:
-      type: url
-      url: https://2019shell1.picoctf.com/problem/61676/
-    steps:
-      - robots.txt
-      
+steps:
+  - run: get_request
+    url: https://2019shell1.picoctf.com/problem/61676/
+  - run: html_comments
