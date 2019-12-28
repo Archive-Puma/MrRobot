@@ -8,7 +8,6 @@ on:
       - 'src/**'
       - '**/Cargo.lock'
       - '**/Cargo.toml'
-
 jobs:
   build:
     strategy:
@@ -17,7 +16,6 @@ jobs:
           - macos-latest
           - ubuntu-latest
     runs-on: ${{ matrix.platform }}
-
     steps:
     - uses: actions/checkout@v1
 
