@@ -1,12 +1,21 @@
 name: Build & Publish
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - '**/Cargo.lock'
+      - '**/Cargo.toml'
 
 jobs:
   build:
     strategy:
       matrix:
-        platform: [windows-latest, macos-latest, ubuntu-latest]
+        platform:
+          - macos-latest
+          - ubuntu-latest
     runs-on: ${{ matrix.platform }}
 
     steps:
