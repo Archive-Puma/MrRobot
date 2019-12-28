@@ -1,4 +1,4 @@
-name: Multiplatform Build
+name: Build & Publish
 
 on: [push]
 
@@ -13,19 +13,19 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Install Cargo Toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-            toolchain: stable
-            default: true
-            override: true
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        default: true
+        override: true
 
-    - name: Run Build
+    - name: Cargo Build
       uses: actions-rs/cargo@v1
       with:
         command: build
         args: --release --verbose
 
-    - name: Run Test
+    - name: Cargo Test
       uses: actions-rs/cargo@v1
       with:
         command: test
