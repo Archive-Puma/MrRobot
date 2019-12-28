@@ -12,6 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Install Cargo Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            default: true
+            override: true
+
     - name: Run Build
       uses: actions-rs/cargo@v1
       with:
