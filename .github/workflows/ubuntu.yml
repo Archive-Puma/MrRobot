@@ -4,7 +4,10 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
 
     steps:
     - uses: actions/checkout@v1
@@ -36,5 +39,5 @@ jobs:
     - name: Upload binary
       uses: actions/upload-artifact@v1
       with:
-        name: mrrobot-amd64
+        name: mrrobot-amd64-${{ runner.os }}
         path: target/release/mrrobot
