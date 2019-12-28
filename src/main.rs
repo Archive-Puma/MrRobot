@@ -23,13 +23,13 @@
 //! - [ ] make macro (match Ok(value) => Ok(value), _ => throw($Error))
 
 // Implement the mods
-mod composer;
 mod environment;
+mod composer;
 mod work;
 
 // Use crate utilities
-use crate::composer::{read,validate,Yaml,get_steps,run_steps};
-use crate::environment::{Arguments,get_arguments,Result};
+use self::composer::{read,validate,Yaml,get_steps,run_steps};
+use self::environment::{Arguments,get_arguments,Result};
 
 fn main() {
 	match entrypoint() {

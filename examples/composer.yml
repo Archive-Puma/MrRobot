@@ -3,3 +3,4 @@ steps:
   - run: get_request
     url: https://2019shell1.picoctf.com/problem/61676/
   - run: html_comments
+report: stdin

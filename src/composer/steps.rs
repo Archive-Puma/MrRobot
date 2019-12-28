@@ -25,10 +25,10 @@ fn get_step_name(step: &Yaml) -> Result<String> {
     }
 }
 
-fn run_by_stepname(name: &str, data: &Yaml) -> Result<()> {
+fn run_by_stepname(name: &str, data: &Yaml) -> Result<String> {
     Ok(match name {
-        "get_request"   => Ok(web::get_body::run(data)?),
-        "html_comments" => Ok(()),
+        "get_request"   => Ok(web::get::body(data)?),
+        "html_comments" => Ok(String::new()),
         _ => throw(MrError::_Unimplemented)
     }?)
 }

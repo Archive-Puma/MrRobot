@@ -1,5 +1,6 @@
-mod mrerror;
 mod arguments;
+pub mod macros;
+mod mrerror;
 
 // arguments
 pub use arguments::Arguments;
