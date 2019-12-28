@@ -1,0 +1,31 @@
+name: Multiplatform Build
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Run Build
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --release --verbose
+
+    - name: Run Test
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --release --verbose
+
+    - name: Upload binary
+      uses: actions/upload-artifact@v1
+      with:
+        name: mrrobot-amd64-${{ runner.os }}
+        path: target/release/mrrobot
