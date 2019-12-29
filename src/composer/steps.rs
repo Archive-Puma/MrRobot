@@ -1,13 +1,11 @@
+use crate::get;
 use crate::composer::Yaml;
 use crate::environment::{throw,MrError,Result};
 
 use crate::work::web;
 
 pub fn get_steps(data: &Yaml) -> Result<&Vec<Yaml>> {
-    match &data["steps"].as_vec() {
-        None => throw(MrError::_Unimplemented),
-        Some(steps) => Ok(*steps)
-    }
+    Ok(*get!(&data["steps"].as_vec() => MrError::_Unimplemented))
 }
 
 pub fn run_steps(steps: &[Yaml]) -> Result<()> {
@@ -19,10 +17,7 @@ pub fn run_steps(steps: &[Yaml]) -> Result<()> {
 }
 
 fn get_step_name(step: &Yaml) -> Result<String> {
-    match step["run"].as_str() {
-        None => throw(MrError::_Unimplemented),
-        Some(name) => Ok(name.to_string())
-    }
+    Ok(get!(step["run"].as_str() => MrError::_Unimplemented).to_string())
 }
 
 fn run_by_stepname(name: &str, data: &Yaml) -> Result<String> {

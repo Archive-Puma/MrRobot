@@ -1,37 +1,27 @@
-// standard imports
+use crate::get;
+use crate::environment::{throw,Result,MrError};
+
 use std::fs;
 use std::path::Path;
-// internal crates (error handler)
-use crate::environment::{throw,Result,MrError};
-// external crates (yaml serializer/deserializer)
+
 extern crate yaml_rust;
 use yaml_rust::YamlLoader;
 pub use yaml_rust::Yaml;
 
 fn check_extension (filename: &str) -> Result<()> {
 	let path: &Path = Path::new(filename);
-	match path.extension() {
-		None => throw(MrError::ComposerNoExtension),
-		Some(data) => {
-			let extension: &str = data.to_str().unwrap();
-			if extension == "yml" || extension == "yaml" { Ok(()) }
-			else { throw(MrError::ComposerWrongExtension) }
-		}
-	}
+	let extension: &str = get!(path.extension() => MrError::ComposerNoExtension).to_str().unwrap();
+	if extension != "yml" && extension != "yaml" { throw(MrError::ComposerWrongExtension)? }
+	Ok(())
 }
 
 fn get_contents(filename: &str) -> Result<String> {
-	match fs::read_to_string(filename) {
-		Ok(content) => Ok(content),
-		Err(_)      => throw(MrError::ComposerNotFound)
-	}
+	Ok(get!(fs::read_to_string(filename), MrError::ComposerNotFound))
 }
 
 fn to_yaml(contents: &str) -> Result<Yaml> {
-	match YamlLoader::load_from_str(contents) {
-		Ok(data) => Ok(data[0].clone()),
-		Err(_)   => throw(MrError::ComposerWrongYamlFormat)
-	}
+	let docs: Vec<Yaml> = get!(YamlLoader::load_from_str(contents), MrError::ComposerWrongYamlFormat);
+	Ok(get!(docs.first() => MrError::_Unimplemented).clone())
 }
 
 pub fn read(filename: &str) -> Result<Yaml> {

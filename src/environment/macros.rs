@@ -1,15 +1,15 @@
 #[macro_export]
 macro_rules! get {
-    ($input:expr) => {
+    ($input:expr, $error:expr) => {
         match $input {
             Ok(value) => Ok(value),
-            _ => throw(MrError::_Unimplemented)
+            Err(_) => throw($error)
         }?
     };
-    ($input:expr,$error:expr) => {
+    ($input:expr => $error:expr) => {
         match $input {
-            Ok(value) => Ok(value),
-            _ => throw($error)
+            Some(value) => Ok(value),
+            None => throw($error)
         }?
     };
 }
