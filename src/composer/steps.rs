@@ -1,13 +1,10 @@
 use std::collections::HashMap;
 
 use crate::get;
-use crate::composer::Yaml;
+use crate::composer::{get_variable_name,Yaml};
 use crate::environment::{throw,MrError,Result};
 
 use crate::work::web;
-
-extern crate regex;
-use regex::Regex;
 
 pub type Variables = HashMap<String,String>;
 
@@ -20,13 +17,11 @@ pub fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Result<Strin
         _ => MrError::_Unimplemented
     });
 
-    let re: Regex = Regex::new(r"^\{\{ ([^ ]) \}\}$").unwrap();
-    if re.is_match(value) {
-        let input: &str = re.captures(value).unwrap().get(0).unwrap().as_str();
-        
-        if variables.contains_key(input) { value = variables.get(input).unwrap(); }
+    if let Some(input) = get_variable_name(value) {
+        if variables.contains_key(&input) { value = variables.get(&input).unwrap(); }
         else { throw(MrError::_Unimplemented)?; }
     }
+
     println!("{:?}", value);
 
     Ok(String::from(value))
