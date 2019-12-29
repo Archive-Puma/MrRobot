@@ -27,14 +27,17 @@ mod environment;
 mod composer;
 mod work;
 
+// Use deps utilities
+use colored::*;
+
 // Use crate utilities
 use self::composer::{read,validate,Yaml,get_steps,run_steps};
 use self::environment::{Arguments,get_arguments,Result};
 
 fn main() {
 	match entrypoint() {
-		Ok(_)    => println!("[+] All done!"),
-		Err(err) => println!("[!] {}.", err.kind.as_str())
+		Ok(_)    => println!("{} {}", "[+]".bold().green(), "All done!".bold().green()),
+		Err(err) => println!("{} {}", "[!]".bold().red(), err.kind.as_str().bold().red())
 	}
 }
 
