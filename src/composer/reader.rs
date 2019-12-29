@@ -21,7 +21,7 @@ fn get_contents(filename: &str) -> Result<String> {
 
 fn to_yaml(contents: &str) -> Result<Yaml> {
 	let docs: Vec<Yaml> = get!(YamlLoader::load_from_str(contents), MrError::ComposerWrongYamlFormat);
-	Ok(get!(docs.first() => MrError::_Unimplemented).clone())
+	Ok(get!(docs.first() => MrError::ComposerEmpty).clone())
 }
 
 pub fn read(filename: &str) -> Result<Yaml> {
