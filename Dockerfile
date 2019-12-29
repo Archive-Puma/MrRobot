@@ -13,4 +13,4 @@ COPY . .
 RUN cargo build --"$target"
 
 # Run
-ENTRYPOINT ["cargo","run","--"]
+ENTRYPOINT ["cargo","run","--$target","--"]
