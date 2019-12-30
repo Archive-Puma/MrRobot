@@ -1,7 +1,7 @@
 version: 1
 steps:
   - run: get_request
-    url: https://2019shell1.picoctf.com/problem/61676/
+    url: http://magodavidmaestro.com/
     out: html_src
   - run: html_comments
     src: ${{ html_src }}

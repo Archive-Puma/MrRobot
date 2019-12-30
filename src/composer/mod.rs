@@ -8,6 +8,7 @@ pub use reader::read;
 pub use reader::Yaml;
 // regexp
 pub use regexp::get_variable_name;
+pub use regexp::get_all_matches;
 // steps
 pub use steps::get_param;
 pub use steps::get_steps;

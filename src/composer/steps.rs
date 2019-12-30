@@ -36,10 +36,11 @@ pub fn run_steps(steps: &[Yaml]) -> Result<()> {
 
         if let Some(out) = &step["out"].as_str() {
             variables.insert(out.to_string(), String::from(&result));
-        }
-        
-        println!("{:?}", result);
+        } else {
+            println!("{}", result);
+        }        
     }
+
     Ok(())
 }
 
