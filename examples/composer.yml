@@ -4,5 +4,5 @@ steps:
     url: https://2019shell1.picoctf.com/problem/61676/
     out: html_src
   - run: html_comments
-    src: {{ html_src }}
-report: stdin
+    src: ${{ html_src }}
+report: stdout
