@@ -1,9 +1,8 @@
+use crate::composer::{get_param, Variables, Yaml};
+use crate::environment::{throw, MrError, Result};
 use crate::get;
-use crate::composer::{get_param,Yaml,Variables};
-use crate::environment::{throw,MrError,Result};
 
-extern crate reqwest;
-use reqwest::{Response};
+use reqwest::Response;
 
 pub fn body(data: &Yaml, variables: &Variables) -> Result<String> {
     let url: String = get_param("url", data, variables)?;
@@ -12,9 +11,9 @@ pub fn body(data: &Yaml, variables: &Variables) -> Result<String> {
 }
 
 fn get_response(url: &str) -> Result<Response> {
-    Ok(get!(reqwest::get(url), MrError::_Unimplemented))
+    Ok(get!(reqwest::get(url), MrError::Unimplemented))
 }
 
 fn get_body(response: &mut Response) -> Result<String> {
-    Ok(get!(response.text(), MrError::_Unimplemented))
+    Ok(get!(response.text(), MrError::Unimplemented))
 }
