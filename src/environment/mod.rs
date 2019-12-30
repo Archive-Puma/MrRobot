@@ -1,4 +1,5 @@
 mod arguments;
+pub mod banner;
 pub mod macros;
 mod mrerror;
 

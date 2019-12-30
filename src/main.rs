@@ -32,7 +32,7 @@ use colored::*;
 
 // Use crate utilities
 use self::composer::{get_steps,read,run_steps,validate,Yaml};
-use self::environment::{get_arguments,Arguments,Result};
+use self::environment::{banner,get_arguments,Arguments,Result};
 
 fn main() {
     match entrypoint() {
@@ -42,6 +42,8 @@ fn main() {
 }
 
 fn entrypoint() -> Result<()> {
+    // Show the argument
+    banner::show();
     // Get the arguments
     let arguments: Arguments = get_arguments();
     let composer: &str = arguments.value_of("composer").unwrap();
