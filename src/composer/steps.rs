@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
+use crate::{get,run_work};
 use crate::composer::{get_variable_name, Yaml};
 use crate::environment::{throw, MrError, Result};
-use crate::get;
 
 use crate::work::*;
 
@@ -50,8 +50,8 @@ fn get_step_name(step: &Yaml) -> Result<String> {
 
 fn run_by_stepname(name: String, data: &Yaml, variables: &Variables) -> Result<String> {
     Ok(match name.as_ref() {
-        "get_request" => Ok(web::get::body(data, variables)?),
-        "html_comments" => Ok(web::comments::html(data, variables)?),
+        "get_request"   => run_work!(web,get_request    => data,variables),
+        "html_comments" => run_work!(web,html_comments  => data,variables),
         _ => throw(MrError::_Unimplemented),
     }?)
 }
