@@ -1,8 +1,8 @@
 version: 1
 steps:
-  - run: get_request
+  - run: web/get_request
     url: http://magodavidmaestro.com/
     out: html_src
-  - run: html_comments
+  - run: web/html_comments
     src: ${{ html_src }}
 report: stdout

@@ -17,7 +17,8 @@ fn entrypoint() -> Value<String> {
     let filename: &str = args.value_of("composer").unwrap();
     let data: Yaml = composer::get(filename)?;
     // Run the steps
-    composer::steps::run(&data)?;
+    let report: String = composer::steps::run(&data)?;
 
-    Ok(String::new())
+    println!("{}", report);
+    Ok(report)
 }

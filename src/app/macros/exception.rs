@@ -1,10 +1,10 @@
 #[macro_export]
 macro_rules! raise {
     ($exception:ident) => {
-        Err(Exception::$exception)
+        Err(crate::Exception::$exception)
     };
     ($exception:ident => $name:expr) => {
-        Err(Exception::$exception($name.to_string()))
+        Err(crate::Exception::$exception($name.to_string()))
     };
 }
 
@@ -13,19 +13,19 @@ macro_rules! get {
     (result; $expr:expr => $exception:ident) => {
         match $expr {
             Ok(value) => Ok(value),
-            Err(_) => raise!($exception)
+            Err(_) => crate::raise!($exception)
         }
     };
     (option; $expr:expr => $exception:ident) => {
         match $expr {
             Some(value) => Ok(value),
-            None => raise!($exception)
+            None => crate::raise!($exception)
         }
     };
     (option; $expr:expr => $exception:ident, $name:expr) => {
         match $expr {
             Some(value) => Ok(value),
-            None => raise!($exception => $name)
+            None => crate::raise!($exception => $name)
         }
     };
 }

@@ -1,4 +1,4 @@
-use crate::{get, raise, Exception, Value};
+use crate::{get, raise, Value};
 
 use yaml_rust::{YamlLoader};
 pub use yaml_rust::Yaml;
@@ -47,18 +47,23 @@ pub mod steps {
     use crate::works::*;
     use crate::{regex,Colorize,Variables};
 
-    pub fn run(data: &Yaml) -> Value<()> {
+    pub fn run(data: &Yaml) -> Value<String> {
+        let mut report: String = String::new();
         let steps: &Vec<Yaml> = get_steps(data)?;
-        let variables: Variables = Variables::new();
+        let mut variables: Variables = Variables::new();
         
         println!("{}", "[*] Starting the process...".bold().green());
 
         for(_, step) in steps.iter().enumerate() {
             let name: String = get_name(&step)?;
             let result: String = run_step(&name, step, &variables)?;
-            println!("{}", result);
+            match &step["out"].as_str() {
+                None => { report = [report,result].join("\n"); }
+                Some(variable) => { variables.insert(variable.to_string(), result); }
+            }
         }
-        Ok(())
+
+        Ok(report)
     }
 
     fn get_steps(data: &Yaml) -> Value<&Vec<Yaml>> {
@@ -72,7 +77,7 @@ pub mod steps {
 
     pub fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
         let mut value: &str = get!(option; data[name].as_str() => StepNoParam,name)?;
-        if let Some(variable) = get_variable(name) {
+        if let Some(variable) = get_variable(value) {
             value = match variables.contains_key(&variable) {
                 true  => Ok(variables.get(&variable).unwrap()),
                 false => raise!(StepWrongVariable => variable)
@@ -89,7 +94,8 @@ pub mod steps {
     fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
-            "get_request" => web::get_request(data,variables),
+            "web/get_request"   => web::get_request(data,variables),
+            "web/html_comments" => web::html_comments(data,variables),
             _ => raise!(StepWrongWorkName => name)
         }
     }
