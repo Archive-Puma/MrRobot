@@ -1,0 +1,20 @@
+version: 1
+steps:
+  - run: web/get_request
+    url: https://2019shell1.picoctf.com/problem/61676/
+    out: html_src
+  - run: web/get_request
+    url: https://2019shell1.picoctf.com/problem/61676/mycss.css
+    out: css_src
+  - run: web/get_request
+    url: https://2019shell1.picoctf.com/problem/61676/myjs.js
+    out: js_src
+  - run: src/comments
+    src: ${{ html_src }}
+    language: html
+  - run: src/comments
+    src: ${{ css_src }}
+    language: css
+  - run: src/comments
+    src: ${{ js_src }}
+    language: js

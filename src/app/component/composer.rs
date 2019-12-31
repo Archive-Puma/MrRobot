@@ -93,8 +93,8 @@ pub mod steps {
     fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
-            "web/get_request"   => web::get_request(data,variables),
-            "web/html_comments" => web::html_comments(data,variables),
+            "src/comments"    => src::comments(data,variables),
+            "web/get_request" => web::get_request(data,variables),
             _ => raise!(StepWrongWorkName => name)
         }
     }

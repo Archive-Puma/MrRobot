@@ -3,6 +3,6 @@ steps:
   - run: web/get_request
     url: http://magodavidmaestro.com/
     out: html_src
-  - run: web/html_comments
+  - run: src/comments
     src: ${{ html_src }}
-report: stdout
+    language: html
