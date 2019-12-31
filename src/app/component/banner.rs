@@ -1,4 +1,4 @@
-use colored::*;
+use colored::Colorize;
 
 pub fn show() {
     let banner = &[
@@ -11,5 +11,5 @@ pub fn show() {
         ""
     ].join("\n");
 
-    println!("{}", banner.bold().red());
+    println!("{}", banner.bold().red())
 }
