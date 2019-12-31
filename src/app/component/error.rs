@@ -14,7 +14,9 @@ pub enum Exception {
     StepNoRunAttribute,
     StepWrongWorkName(String),
     StepNoParam(String),
-    StepWrongVariable(String)
+    StepWrongVariable(String),
+
+    NoInternetConnection
 }
 
 impl Exception {
@@ -32,7 +34,8 @@ impl Exception {
             Exception::StepNoRunAttribute      => format!("At least one of the steps does not have the 'run' attribute"),
             Exception::StepWrongWorkName(name) => format!("The work '{}' does not exists", name),
             Exception::StepNoParam(name)       => format!("Parameter '{}' not specified", name),
-            Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name)
+            Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name),
+            Exception::NoInternetConnection    => format!("Unable to make the request. Check your internet connection.")
         }
     }
 }
