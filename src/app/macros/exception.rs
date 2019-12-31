@@ -3,7 +3,7 @@ macro_rules! raise {
     ($exception:ident) => {
         Err(Exception::$exception)
     };
-    ($exception:ident => $name:literal) => {
+    ($exception:ident => $name:expr) => {
         Err(Exception::$exception($name.to_string()))
     };
 }
@@ -20,6 +20,12 @@ macro_rules! get {
         match $expr {
             Some(value) => Ok(value),
             None => raise!($exception)
+        }
+    };
+    (option; $expr:expr => $exception:ident, $name:expr) => {
+        match $expr {
+            Some(value) => Ok(value),
+            None => raise!($exception => $name)
         }
     };
 }

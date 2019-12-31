@@ -13,25 +13,26 @@ pub enum Exception {
 
     StepNoRunAttribute,
     StepWrongWorkName(String),
+    StepNoParam(String),
+    StepWrongVariable(String)
 }
 
 impl Exception {
     pub fn message(&self) -> String {
-        if let Exception::StepWrongWorkName(name) = self { format!("The work '{}' does not exists", name) }
-        else {
-            match *self {
-                Exception::ComposerNotFound           => "Cannot read the composer (No such file)",
-                Exception::ComposerNoExtension        => "The composer has no extension",
-                Exception::ComposerWrongExtension     => "The composer has no YAML extension",
-                Exception::ComposerEmpty              => "The composer is empty",
-                Exception::ComposerWrongFormat        => "YAML syntax error in composer",
-                Exception::ComposerNoVersion          => "Numeric attribute 'version' not specified in composer",
-                Exception::ComposerWrongVersion       => "Numeric attribute 'version' has a wrong value (should be: 1)",
-                Exception::ComposerNoSteps            => "Vectorial attribute 'steps' not specified in composer",
+        match self {
+            Exception::ComposerNotFound        => format!("Cannot read the composer (No such file)"),
+            Exception::ComposerNoExtension     => format!("The composer has no extension"),
+            Exception::ComposerWrongExtension  => format!("The composer has no YAML extension"),
+            Exception::ComposerEmpty           => format!("The composer is empty"),
+            Exception::ComposerWrongFormat     => format!("YAML syntax error in composer"),
+            Exception::ComposerNoVersion       => format!("Numeric attribute 'version' not specified in composer"),
+            Exception::ComposerWrongVersion    => format!("Numeric attribute 'version' has a wrong value (should be: 1)"),
+            Exception::ComposerNoSteps         => format!("Vectorial attribute 'steps' not specified in composer"),
 
-                Exception::StepNoRunAttribute         => "At least one of the steps does not have the 'run' attribute",
-                _                                     => unreachable!()
-            }.to_string()
+            Exception::StepNoRunAttribute      => format!("At least one of the steps does not have the 'run' attribute"),
+            Exception::StepWrongWorkName(name) => format!("The work '{}' does not exists", name),
+            Exception::StepNoParam(name)       => format!("Parameter '{}' not specified", name),
+            Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name)
         }
     }
 }

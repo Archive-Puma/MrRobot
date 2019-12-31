@@ -44,7 +44,7 @@ fn check_version(data: &Yaml) -> Value<i64> {
 
 pub mod steps {
     use super::*;
-    use crate::{Colorize,Variables};
+    use crate::{regex,Colorize,Variables};
 
     pub fn run(data: &Yaml) -> Value<()> {
         let steps: &Vec<Yaml> = get_steps(data)?;
@@ -54,7 +54,7 @@ pub mod steps {
 
         for(_, step) in steps.iter().enumerate() {
             let name: String = get_name(&step)?;
-            run_step(&name, data, &variables)?;
+            run_step(&name, step, &variables)?;
         }
         Ok(())
     }
@@ -68,11 +68,27 @@ pub mod steps {
         Ok(name)
     }
 
+    fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
+        let mut value: &str = get!(option; data[name].as_str() => StepNoParam,name)?;
+        if let Some(variable) = get_variable(name) {
+            value = match variables.contains_key(&variable) {
+                true  => Ok(variables.get(&variable).unwrap()),
+                false => raise!(StepWrongVariable => variable)
+            }?;
+        }
+
+        Ok(value.to_string())
+    }
+
+    fn get_variable(name: &str) -> Option<String> {
+        regex!(one; name, r"^\$\{\{([^\}]+)\}\}$")
+    }
+
     fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
-            "get_request" => raise!(StepWrongWorkName => "get_request"),
-            _ => Ok(String::new())
+            "get_request" => get_param("url", data, variables),
+            _ => raise!(StepWrongWorkName => name)
         }
     }
 }
