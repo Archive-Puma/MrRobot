@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! create_work {
     ($data:ident, $variables: ident => $code:block) => {
-        pub fn run($data: &Yaml, $variables: &Variables) -> Result<String> {
+        pub fn run($data: &Yaml, $variables: &Variables) -> Value<String> {
             $code
         }
     };
