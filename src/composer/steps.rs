@@ -1,5 +1,9 @@
 use std::collections::HashMap;
 
+use colored::*;
+use std::fs::File;
+use std::io::Write;
+
 use crate::{get,run_work};
 use crate::composer::{get_variable_name, Yaml};
 use crate::environment::{throw, MrError, Result};
@@ -29,17 +33,24 @@ pub fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Result<Strin
 }
 
 pub fn run_steps(steps: &[Yaml]) -> Result<()> {
+    // Output
+    let mut report: String = String::new();
+    // Variables
     let mut variables: Variables = Variables::new();
+    // Works
     for (_index, step) in steps.iter().enumerate() {
         let name: String = get_step_name(step)?;
         let result: String = run_by_stepname(name, step, &variables)?;
-
+        
         if let Some(out) = &step["out"].as_str() {
             variables.insert(out.to_string(), String::from(&result));
         } else {
-            println!("{}", result);
-        }        
+            report = [report,result].join("\n");
+        }
     }
+    // File
+    let mut file: File = File::create("report.txt").unwrap();
+    file.write_all(report.trim().as_bytes()).unwrap();
 
     Ok(())
 }
@@ -49,6 +60,7 @@ fn get_step_name(step: &Yaml) -> Result<String> {
 }
 
 fn run_by_stepname(name: String, data: &Yaml, variables: &Variables) -> Result<String> {
+    println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), &name.bold().blue());
     Ok(match name.as_ref() {
         "get_request"   => run_work!(web,get_request    => data,variables),
         "html_comments" => run_work!(web,html_comments  => data,variables),
