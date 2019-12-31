@@ -35,7 +35,7 @@ impl Exception {
             Exception::StepWrongWorkName(name) => format!("The work '{}' does not exists", name),
             Exception::StepNoParam(name)       => format!("Parameter '{}' not specified", name),
             Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name),
-            Exception::NoInternetConnection    => format!("Unable to make the request. Check your internet connection.")
+            Exception::NoInternetConnection    => format!("Unable to make the request: Bad url or no Internet connection")
         }
     }
 }
