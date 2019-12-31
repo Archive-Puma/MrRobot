@@ -8,7 +8,7 @@ fn main() {
     }
 }
 
-fn entrypoint() -> Value<String> {
+fn entrypoint() -> Value<Report> {
     // Parse the Arguments
     let args: Arguments = arguments::parse();    
     // Show the banner
@@ -17,8 +17,8 @@ fn entrypoint() -> Value<String> {
     let filename: &str = args.value_of("composer").unwrap();
     let data: Yaml = composer::get(filename)?;
     // Run the steps
-    let report: String = composer::steps::run(&data)?;
+    let report: Report = composer::steps::run(&data)?;
+    report.display(100);
 
-    println!("{}", report);
     Ok(report)
 }

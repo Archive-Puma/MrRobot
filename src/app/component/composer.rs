@@ -44,11 +44,10 @@ fn check_version(data: &Yaml) -> Value<i64> {
 
 pub mod steps {
     use super::*;
-    use crate::works::*;
-    use crate::{regex,Colorize,Variables};
+    use crate::{Colorize, regex, Report, Variables, works::*};
 
-    pub fn run(data: &Yaml) -> Value<String> {
-        let mut report: String = String::new();
+    pub fn run(data: &Yaml) -> Value<Report> {
+        let mut report: Report = Report::new("stdout");
         let steps: &Vec<Yaml> = get_steps(data)?;
         let mut variables: Variables = Variables::new();
         
@@ -58,7 +57,7 @@ pub mod steps {
             let name: String = get_name(&step)?;
             let result: String = run_step(&name, step, &variables)?;
             match &step["out"].as_str() {
-                None => { report = [report,result].join("\n"); }
+                None => { report.append(result); }
                 Some(variable) => { variables.insert(variable.to_string(), result); }
             }
         }
