@@ -8,7 +8,7 @@ fn main() {
     }
 }
 
-fn entrypoint() -> Value<()> {
+fn entrypoint() -> Value<String> {
     // Parse the Arguments
     let args: Arguments = arguments::parse();    
     // Show the banner
@@ -16,8 +16,8 @@ fn entrypoint() -> Value<()> {
     // Read the composer
     let filename: &str = args.value_of("composer").unwrap();
     let data: Yaml = composer::get(filename)?;
-    // Get the steps to follow
-    let _steps: &Vec<Yaml> = composer::steps::get(&data)?;
-    
-    Ok(())
+    // Run the steps
+    composer::steps::run(&data)?;
+
+    Ok(String::new())
 }

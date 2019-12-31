@@ -3,6 +3,9 @@ macro_rules! raise {
     ($exception:ident) => {
         Err(Exception::$exception)
     };
+    ($exception:ident => $name:literal) => {
+        Err(Exception::$exception($name.to_string()))
+    };
 }
 
 #[macro_export]

@@ -44,10 +44,37 @@ fn check_version(data: &Yaml) -> Value<i64> {
 
 pub mod steps {
     use super::*;
+    use crate::{Colorize,Variables};
 
-    pub fn get(data: &Yaml) -> Value<&Vec<Yaml>> {
+    pub fn run(data: &Yaml) -> Value<()> {
+        let steps: &Vec<Yaml> = get_steps(data)?;
+        let variables: Variables = Variables::new();
+        
+        println!("{}", "[*] Starting the process...".bold().green());
+
+        for(_, step) in steps.iter().enumerate() {
+            let name: String = get_name(&step)?;
+            run_step(&name, data, &variables)?;
+        }
+        Ok(())
+    }
+
+    fn get_steps(data: &Yaml) -> Value<&Vec<Yaml>> {
         get!(option; data["steps"].as_vec() => ComposerNoSteps)
-    }   
+    }
+
+    fn get_name(step: &Yaml) -> Value<String> {
+        let name: String = get!(option; step["run"].as_str() => StepNoRunAttribute)?.to_string();
+        Ok(name)
+    }
+
+    fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
+        println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
+        match name {
+            "get_request" => raise!(StepWrongWorkName => "get_request"),
+            _ => Ok(String::new())
+        }
+    }
 }
 
 /* Documentation
