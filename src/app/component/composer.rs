@@ -1,6 +1,6 @@
 use crate::{get, raise, Value};
 
-use yaml_rust::{YamlLoader};
+use yaml_rust::YamlLoader;
 pub use yaml_rust::Yaml;
 
 use std::path::Path;
@@ -94,6 +94,7 @@ pub mod steps {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
             "src/comments"    => src::comments(data,variables),
+            "util/regex"      => util::regex(data,variables),
             "web/get_request" => web::get_request(data,variables),
             _ => raise!(StepWrongWorkName => name)
         }

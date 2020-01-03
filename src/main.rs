@@ -32,5 +32,7 @@ fn entrypoint() -> Value<Report> {
     let report: Report = composer::steps::run(&data)?;
     report.display(100);
 
+    info!("Result: {}", report.to_str());
+
     Ok(report)
 }

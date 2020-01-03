@@ -1,0 +1,8 @@
+version: 1
+steps:
+  - run: web/get_request
+    url: https://2019shell1.picoctf.com/problem/45102/8e32f.html
+    out: result
+  - run: util/regex
+    text: ${{ result }}
+    pattern: picoCTF\{.*\}

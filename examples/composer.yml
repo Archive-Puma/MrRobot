@@ -1,8 +1,0 @@
-version: 1
-steps:
-  - run: web/get_request
-    url: http://magodavidmaestro.com/
-    out: html_src
-  - run: src/comments
-    src: ${{ html_src }}
-    language: html
