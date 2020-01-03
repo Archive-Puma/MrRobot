@@ -1,6 +1,7 @@
-use colored::Colorize;
+use crate::{Colorize, debug};
 
 pub fn show() {
+    debug!("Banner set to true.");
     let banner = &[
         "",
         "        \\  |         _ \\         |           |",

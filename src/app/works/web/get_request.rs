@@ -1,10 +1,11 @@
-use crate::{composer::steps, create_work, get};
+use crate::{composer::steps, create_work, debug, get};
 
 use reqwest::blocking::Response;
 
 create_work!(get_request; data, variables => {
     let url: String = steps::get_param("url", data, variables)?;
-    println!("{}--- {} {}","[?]", "url:", url);
+    debug!("url: {}", url);
     let response: Response = get!(result; reqwest::blocking::get(&url) => NoInternetConnection)?;
+    debug!("status code: {}", response.status());
     get!(result; response.text() => ComposerEmpty)
 });

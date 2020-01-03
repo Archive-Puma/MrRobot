@@ -3,8 +3,14 @@ use app::*;
 
 fn main() {
     match entrypoint() {
-        Ok(_) => println!("{}", "[+] All done!".bold().green()),
-        Err(exception) => println!("{} {}", "[!]".bold().red(), exception.message().bold().red()),
+        Ok(_) => {
+            info!("All correctly done.");
+            println!("{}", "[+] All done!".bold().green());
+        },
+        Err(exception) => {
+            error!("{}", exception.message());
+            println!("{} {}", "[!]".bold().red(), exception.message().bold().red());
+        },
     }
 }
 
