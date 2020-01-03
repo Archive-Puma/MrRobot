@@ -10,7 +10,13 @@ fn main() {
 
 fn entrypoint() -> Value<Report> {
     // Parse the Arguments
-    let args: Arguments = arguments::parse();    
+    let args: Arguments = arguments::parse();  
+    // Verbosity and log
+    let verbosity: u64 = args.occurrences_of("verbosity");
+    if args.is_present("logger") {
+        let logfile: &str = args.value_of("logger").unwrap_or("mrrobot.log");
+        logger::init(logfile, verbosity);
+    }
     // Show the banner
     if ! args.is_present("no-banner") { banner::show(); }
     // Read the composer

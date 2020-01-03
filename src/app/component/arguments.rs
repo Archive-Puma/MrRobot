@@ -16,6 +16,19 @@ pub fn parse() -> Arguments<'static> {
                 .help("Don't display the banner")
         )
         .arg(
+            Arg::with_name("verbosity")
+                .short("v")
+                .multiple(true)
+                .help("Set the verbosity level (Default: -vv).")
+        )
+        .arg(
+            Arg::with_name("logger")
+                .short("l")
+                .long("logger")
+                .takes_value(true)
+                .help("Enable and specifies the log file")
+        )
+        .arg(
             Arg::with_name("composer")
                 .short("f")
                 .long("file")

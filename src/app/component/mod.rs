@@ -1,5 +1,7 @@
 pub mod banner;
 
+pub mod logger;
+
 pub mod arguments;
 pub use arguments::Arguments;
 
