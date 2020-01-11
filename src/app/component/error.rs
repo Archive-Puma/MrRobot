@@ -12,6 +12,7 @@ pub enum Exception {
     ComposerNoSteps,
 
     StepNoRunAttribute,
+    StepWrongRunAttribute,
     StepWrongWorkName(String),
     StepNoParam(String),
     StepWrongVariable(String),
@@ -32,6 +33,7 @@ impl Exception {
             Exception::ComposerNoSteps         => format!("Vectorial attribute 'steps' not specified in composer"),
 
             Exception::StepNoRunAttribute      => format!("At least one of the steps does not have the 'run' attribute"),
+            Exception::StepWrongRunAttribute   => format!("Run attribute is wrong"),
             Exception::StepWrongWorkName(name) => format!("The work '{}' does not exists", name),
             Exception::StepNoParam(name)       => format!("Parameter '{}' not specified", name),
             Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name),

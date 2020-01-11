@@ -1,4 +1,4 @@
-use crate::{get, raise, Value};
+use crate::{debug, get, info, raise, Value};
 
 use yaml_rust::YamlLoader;
 pub use yaml_rust::Yaml;
@@ -54,11 +54,16 @@ pub mod steps {
         println!("{}", "[*] Starting the process...".bold().green());
 
         for(_, step) in steps.iter().enumerate() {
-            let name: String = get_name(&step)?;
+            let (name, output): (String, Option<String>) = split_run(&step)?;
+            info!("Work: {}", &name);
+
             let result: String = run_step(&name, step, &variables)?;
-            match &step["out"].as_str() {
+            match output {
                 None => { report.append(result); }
-                Some(variable) => { variables.insert(variable.to_string(), result); }
+                Some(variable) => {
+                    debug!("stored in: {}", variable);
+                    variables.insert(variable.to_string(), result);
+                }
             }
         }
 
@@ -67,11 +72,6 @@ pub mod steps {
 
     fn get_steps(data: &Yaml) -> Value<&Vec<Yaml>> {
         get!(option; data["steps"].as_vec() => ComposerNoSteps)
-    }
-
-    fn get_name(step: &Yaml) -> Value<String> {
-        let name: String = get!(option; step["run"].as_str() => StepNoRunAttribute)?.to_string();
-        Ok(name)
     }
 
     pub fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
@@ -88,6 +88,20 @@ pub mod steps {
 
     fn get_variable(name: &str) -> Option<String> {
         regex!(one; name, r"^\$\{\{([^\}]+)\}\}$")
+    }
+
+    fn split_run(step: &Yaml) -> Value<(String, Option<String>)> {
+        let run: String = get!(option; step["run"].as_str() => StepNoRunAttribute)?.to_string();
+        let splitted: Vec<&str> = run.split(">")
+            .map(|segment| segment.trim()).collect();
+        
+        let output: Option<String> = match splitted.len() {
+            1 => Ok(None),
+            2 => Ok(Some(splitted[1].to_string())),
+            _ => raise!(StepWrongRunAttribute)
+        }?;
+
+        Ok((splitted[0].to_string(), output))
     }
 
     fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
