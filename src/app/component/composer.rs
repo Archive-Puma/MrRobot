@@ -57,14 +57,26 @@ pub mod steps {
             let (name, output): (String, Option<String>) = split_run(&step)?;
             info!("Work: {}", &name);
 
-            let result: Variable = run_step(&name, step, &variables)?;
+            let mut result: Variable = run_step(&name, step, &variables)?;
+            /*
             match output {
                 None => { report.append(result.to_string()); }
-                Some(variable) => {
-                    debug!("stored in: {}", variable);
-                    variables.insert(variable.to_string(), result);
+                Some(mut variable) => {
+                    if let Some(concat) = regex!(one; &variable, r">([^>]\S+)") {
+                        debug!("concat in: {}", concat);
+                        let old_value: &str = match variables.get(&concat) {
+                            None => "",
+                            Some(value) => value
+                        };
+                        variable = concat;
+                        result = [old_value,&result.to_string()].join("\n").to_string();
+                    } else {
+                        debug!("stored in: {}", variable);
+                    }
+                    variables.insert(variable.to_string(), result.to_string());
                 }
             }
+            */
         }
 
         Ok(report)
@@ -92,9 +104,9 @@ pub mod steps {
 
     fn split_run(step: &Yaml) -> Value<(String, Option<String>)> {
         let run: String = get!(option; step["run"].as_str() => StepNoRunAttribute)?.to_string();
-        let splitted: Vec<&str> = run.split(">")
+        let splitted: Vec<&str> = run.splitn(2, ">")
             .map(|segment| segment.trim()).collect();
-        
+
         let output: Option<String> = match splitted.len() {
             1 => Ok(None),
             2 => Ok(Some(splitted[1].to_string())),
