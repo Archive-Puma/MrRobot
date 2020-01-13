@@ -46,18 +46,20 @@ jobs:
     # Move the release binary to a distribution folder
     - run: mkdir dist
     - run: cp target/release/mrrobot dist/mrrobot
+      if: "${{ runner.os }}" != "Windows"
     - run: cp target\release\mrrobot.exe dist\mrrobot.exe
-      if: failure()
+      if: "${{ runner.os }}" == "Windows"
     # Upload the binary in a *nix environment
     - name: Upload binary (*nix)
       uses: actions/upload-artifact@v1
+      if: "${{ runner.os }}" != "Windows"
       with:
         name: mrrobot-amd64-${{ runner.os }}
         path: dist/mrrobot
     # Upload the binary in a Windows environment
     - name: Upload binary (NT)
       uses: actions/upload-artifact@v1
+      if: "${{ runner.os }}" == "Windows"
       with:
         name: mrrobot-amd64-${{ runner.os }}
         path: dist/mrrobot.exe
-      if: failure()
