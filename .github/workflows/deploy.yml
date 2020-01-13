@@ -1,0 +1,78 @@
+name: Build & Test
+on:
+  push:
+    branches: [master]
+    paths: ['src/**', '**/Cargo.lock', '**/Cargo.toml']
+  pull_request:
+    branches: [master]
+    paths: ['src/**', '**/Cargo.lock', '**/Cargo.toml']
+
+jobs:
+  testing:
+    strategy:
+      matrix:
+        platform: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v1
+      - name: Install Cargo Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          default: true
+          override: true
+      - name: Cargo Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release --verbose
+
+  release_nix:
+    needs: testing
+    strategy:
+      matrix:
+        platform: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: Clone the repository
+      uses: actions/checkout@v1
+    - name: Install Cargo Toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        default: true
+        override: true
+    - name: Build the release version
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --release --verbose
+    - name: Upload binary (*nix)
+      uses: actions/upload-artifact@v1
+      with:
+        name: mrrobot-amd64-${{ runner.os }}
+        path: target/release/mrrobot
+
+  release_nt:
+    needs: testing
+    runs-on: windows-latest
+    steps:
+    - name: Clone the repository
+      uses: actions/checkout@v1
+    - name: Install Cargo Toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        default: true
+        override: true
+    - name: Build the release version
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --release --verbose
+    - name: Upload binary (NT)
+      uses: actions/upload-artifact@v1
+      with:
+        name: mrrobot-amd64-${{ runner.os }}
+        path: target/release/mrrobot.exe

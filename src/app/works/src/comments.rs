@@ -7,9 +7,10 @@ create_work!(comments; data, variables => {
     let mut result: String = String::new();
     for language in languages {
         let (re_line, re_multiline): (&str,&str) = match language.as_ref() {
-            "html"               => (r"",r"<!--[\s\S]*?-->"),
             "css" |
-            "js"  | "javascript" => (r"//[\s\S]*?$",r"/\*[\s\S]*?\*/"),
+            "js"  | "javascript" => (r"(^|\w)//[^\n]*",r"/\*[\s\S]*?\*/"),
+            "html"               => (r"",r"<!--[\s\S]*?-->"),
+            "web"                => (r"(^|\w)//[^\n]*",r"(/\*[\s\S]*?\*/|<!--[\s\S]*?-->)"),
             _ => (r"",r"")
         };
         let line: String = regex!(all; &src, re_line);
