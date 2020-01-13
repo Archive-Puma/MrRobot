@@ -2,14 +2,18 @@ name: Build & Publish
 
 on:
   push:
+    # Only check master branch
     branches:
       - master
+    # Only run when source code or dependencies changes
     paths:
       - 'src/**'
       - '**/Cargo.lock'
       - '**/Cargo.toml'
 jobs:
+  # Build and publish the release version
   build:
+    # 3 different platforms
     strategy:
       matrix:
         platform:
@@ -18,40 +22,42 @@ jobs:
           - windows-latest
     runs-on: ${{ matrix.platform }}
     steps:
+    # Clone the repository
     - uses: actions/checkout@v1
-
+    # Install rust/cargo
     - name: Install Cargo Toolchain
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
         default: true
         override: true
-
+    # Build the release version
     - name: Cargo Build
       uses: actions-rs/cargo@v1
       with:
         command: build
         args: --release --verbose
-
+    # Run the unitary tests
     - name: Cargo Test
       uses: actions-rs/cargo@v1
       with:
         command: test
         args: --release --verbose
-
+    # Move the release binary to a distribution folder
     - run: mkdir dist
     - run: cp target/release/mrrobot dist/mrrobot
     - run: cp target\release\mrrobot.exe dist\mrrobot.exe
       if: failure()
-    
+    # Upload the binary in a *nix environment
     - name: Upload binary (*nix)
       uses: actions/upload-artifact@v1
       with:
         name: mrrobot-amd64-${{ runner.os }}
         path: dist/mrrobot
-
+    # Upload the binary in a Windows environment
     - name: Upload binary (NT)
       uses: actions/upload-artifact@v1
       with:
         name: mrrobot-amd64-${{ runner.os }}
         path: dist/mrrobot.exe
+      if: failure()
