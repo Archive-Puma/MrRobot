@@ -1,4 +1,4 @@
-use crate::{debug, get, info, raise, Value};
+use crate::{debug, get, info, raise, Value, Variable};
 
 use yaml_rust::YamlLoader;
 pub use yaml_rust::Yaml;
@@ -57,9 +57,9 @@ pub mod steps {
             let (name, output): (String, Option<String>) = split_run(&step)?;
             info!("Work: {}", &name);
 
-            let result: String = run_step(&name, step, &variables)?;
+            let result: Variable = run_step(&name, step, &variables)?;
             match output {
-                None => { report.append(result); }
+                None => { report.append(result.to_string()); }
                 Some(variable) => {
                     debug!("stored in: {}", variable);
                     variables.insert(variable.to_string(), result);
@@ -104,7 +104,7 @@ pub mod steps {
         Ok((splitted[0].to_string(), output))
     }
 
-    fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
+    fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<Variable> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
             "src/comments"    => src::comments(data,variables),

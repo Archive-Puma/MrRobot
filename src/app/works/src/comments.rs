@@ -1,4 +1,4 @@
-use crate::{composer::steps, create_work, regex};
+use crate::{composer::steps, create_work, regex, Variable};
 
 create_work!(comments; data, variables => {
     let src: String = steps::get_param("src", data, variables)?;
@@ -16,5 +16,5 @@ create_work!(comments; data, variables => {
         let multiline: String = regex!(all; &src, re_multiline);
         result = [result,line,multiline].join("\n").trim().to_string();
     }
-    Ok(result)
+    Ok(Variable(result))
 });

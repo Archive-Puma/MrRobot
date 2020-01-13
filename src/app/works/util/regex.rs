@@ -1,4 +1,4 @@
-use crate::{composer::steps, create_work, debug, regex};
+use crate::{composer::steps, create_work, debug, regex, Variable};
 
 use regex::{Regex,RegexBuilder};
 
@@ -12,5 +12,5 @@ create_work!(regex; data, variables => {
     debug!("pattern: {}", regex_pattern);
 
     let result: String = regex!(all; &text, &pattern);
-    Ok(result)
+    Ok(Variable::Text(result))
 });
