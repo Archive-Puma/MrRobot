@@ -16,5 +16,5 @@ create_work!(comments; data, variables => {
         let multiline: String = regex!(all; &src, re_multiline);
         result = [result,line,multiline].join("\n").trim().to_string();
     }
-    Ok(Variable(result))
+    Ok(Variable::Text(result))
 });

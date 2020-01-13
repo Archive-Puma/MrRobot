@@ -58,25 +58,20 @@ pub mod steps {
             info!("Work: {}", &name);
 
             let mut result: Variable = run_step(&name, step, &variables)?;
-            /*
             match output {
                 None => { report.append(result.to_string()); }
                 Some(mut variable) => {
                     if let Some(concat) = regex!(one; &variable, r">([^>]\S+)") {
                         debug!("concat in: {}", concat);
-                        let old_value: &str = match variables.get(&concat) {
-                            None => "",
-                            Some(value) => value
-                        };
+                        let var: Option<&Variable> = variables.get(&concat);
+                        let old_value: &Variable = get!(option; var => StepWrongVariable, concat.to_string())?;
                         variable = concat;
-                        result = [old_value,&result.to_string()].join("\n").to_string();
-                    } else {
-                        debug!("stored in: {}", variable);
-                    }
-                    variables.insert(variable.to_string(), result.to_string());
+                        result = old_value.concat(result);
+                    } else { debug!("stored in: {}", variable); }
+
+                    variables.insert(variable.to_string(), result);
                 }
             }
-            */
         }
 
         Ok(report)
@@ -87,15 +82,16 @@ pub mod steps {
     }
 
     pub fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
-        let mut value: &str = get!(option; data[name].as_str() => StepNoParam,name)?;
-        if let Some(variable) = get_variable(value) {
+        let mut value: String = get!(option; data[name].as_str() => StepNoParam,name)?
+            .to_string();
+        if let Some(variable) = get_variable(&value) {
             value = match variables.contains_key(&variable) {
-                true  => Ok(variables.get(&variable).unwrap()),
+                true  => Ok(variables.get(&variable).unwrap().to_string()),
                 false => raise!(StepWrongVariable => variable)
             }?;
         }
 
-        Ok(value.to_string())
+        Ok(value)
     }
 
     fn get_variable(name: &str) -> Option<String> {
