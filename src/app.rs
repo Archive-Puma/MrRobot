@@ -11,5 +11,3 @@ pub mod works;
 
 pub use colored::Colorize;
 pub use log::{error,warn,info,debug};
-
-// Final Test?
