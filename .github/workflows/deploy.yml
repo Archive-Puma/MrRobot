@@ -38,8 +38,19 @@ jobs:
         command: test
         args: --release --verbose
 
-    - name: Upload binary
+    - run: mkdir dist
+    - run: cp target/release/mrrobot dist/mrrobot
+    - run: cp target\release\mrrobot.exe dist\mrrobot.exe
+      if: failure()
+    
+    - name: Upload binary (*nix)
       uses: actions/upload-artifact@v1
       with:
         name: mrrobot-amd64-${{ runner.os }}
-        path: target/release/mrrobot
+        path: dist/mrrobot
+
+    - name: Upload binary (NT)
+      uses: actions/upload-artifact@v1
+      with:
+        name: mrrobot-amd64-${{ runner.os }}
+        path: dist/mrrobot.exe
