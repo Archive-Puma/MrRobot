@@ -1,14 +1,7 @@
 version: 1
 steps:
-  - run: web/get_request > html
+  - run: web/inspector > src
     url: https://2019shell1.picoctf.com/problem/61676/
-  - run: web/get_request > js_css
-    url: https://2019shell1.picoctf.com/problem/61676/mycss.css
-  - run: web/get_request >> js_css
-    url: https://2019shell1.picoctf.com/problem/61676/myjs.js
   - run: src/comments
-    src: ${{ html }}
-    language: html
-  - run: src/comments
-    src: ${{ js_css }}
-    language: js
+    src: ${{ src }}
+    language: web

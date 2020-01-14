@@ -1,4 +1,4 @@
-use crate::{debug, get, info, raise, Value};
+use crate::{debug, get, info, raise, Value, Variable};
 
 use yaml_rust::YamlLoader;
 pub use yaml_rust::Yaml;
@@ -57,21 +57,18 @@ pub mod steps {
             let (name, output): (String, Option<String>) = split_run(&step)?;
             info!("Work: {}", &name);
 
-            let mut result: String = run_step(&name, step, &variables)?;
+            let mut result: Variable = run_step(&name, step, &variables)?;
             match output {
-                None => { report.append(result); }
+                None => { report.append(result.to_string()); }
                 Some(mut variable) => {
                     if let Some(concat) = regex!(one; &variable, r">([^>]\S+)") {
                         debug!("concat in: {}", concat);
-                        let old_value: &str = match variables.get(&concat) {
-                            None => "",
-                            Some(value) => value
-                        };
+                        let var: Option<&Variable> = variables.get(&concat);
+                        let old_value: &Variable = get!(option; var => StepWrongVariable, concat.to_string())?;
                         variable = concat;
-                        result = [old_value,&result].join("\n").to_string();
-                    } else {
-                        debug!("stored in: {}", variable);
-                    }
+                        result = old_value.concat(result);
+                    } else { debug!("stored in: {}", variable); }
+
                     variables.insert(variable.to_string(), result);
                 }
             }
@@ -85,15 +82,16 @@ pub mod steps {
     }
 
     pub fn get_param(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
-        let mut value: &str = get!(option; data[name].as_str() => StepNoParam,name)?;
-        if let Some(variable) = get_variable(value) {
+        let mut value: String = get!(option; data[name].as_str() => StepNoParam,name)?
+            .to_string();
+        if let Some(variable) = get_variable(&value) {
             value = match variables.contains_key(&variable) {
-                true  => Ok(variables.get(&variable).unwrap()),
+                true  => Ok(variables.get(&variable).unwrap().to_string()),
                 false => raise!(StepWrongVariable => variable)
             }?;
         }
 
-        Ok(value.to_string())
+        Ok(value)
     }
 
     fn get_variable(name: &str) -> Option<String> {
@@ -114,12 +112,14 @@ pub mod steps {
         Ok((splitted[0].to_string(), output))
     }
 
-    fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<String> {
+    fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<Variable> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
             "src/comments"    => src::comments(data,variables),
+            "util/print"      => util::print(data,variables),
             "util/regex"      => util::regex(data,variables),
             "web/get_request" => web::get_request(data,variables),
+            "web/inspector"   => web::inspector(data,variables),
             _ => raise!(StepWrongWorkName => name)
         }
     }

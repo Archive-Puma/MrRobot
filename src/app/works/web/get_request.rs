@@ -1,4 +1,4 @@
-use crate::{composer::steps, create_work, debug, default, get, Value, Variables, warn, Yaml};
+use crate::{composer::steps, create_work, debug, default, get, Value, Variable, Variables, warn, Yaml};
 
 use reqwest::{blocking::Client,blocking::Response,header};
 
@@ -10,7 +10,8 @@ create_work!(get_request; data, variables => {
     let response: Response = get!(result; client.get(&url).headers(set_headers(data, variables)).send() => NoInternetConnection)?;
 
     debug!("status code: {}", response.status());
-    get!(result; response.text() => ComposerEmpty)
+    let result: String = get!(result; response.text() => ComposerEmpty)?;
+    Ok(Variable::Text(result))
 });
 
 fn set_headers(data: &Yaml, variables: &Variables) -> header::HeaderMap {
