@@ -120,6 +120,7 @@ pub mod steps {
             "util/regex"      => util::regex(data,variables),
             "web/get_request" => web::get_request(data,variables),
             "web/inspector"   => web::inspector(data,variables),
+            "web/robots"      => web::robots(data,variables),
             _ => raise!(StepWrongWorkName => name)
         }
     }
