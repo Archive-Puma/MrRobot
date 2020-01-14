@@ -30,9 +30,10 @@ impl Report {
         let limit: usize = if number < 40 { 40 } else if number > 115 { 115 } else { number };
         let mut result: Vec<String> = Vec::new();
         for line in self.to_str().lines() {
-            let mut text: &str = line;
+            let mut text: String = line.to_string();
             while text.len() > limit {
-                let (segment,ending) = text.split_at(limit);
+                let segment: String = text.chars().take(limit).collect();
+                let ending:  String = text.chars().skip(limit).collect();
                 result.push(segment.to_string());
                 text = ending;
             }
