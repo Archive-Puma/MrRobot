@@ -116,8 +116,10 @@ pub mod steps {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
             "src/comments"    => src::comments(data,variables),
+            "util/print"      => util::print(data,variables),
             "util/regex"      => util::regex(data,variables),
             "web/get_request" => web::get_request(data,variables),
+            "web/inspector"   => web::inspector(data,variables),
             _ => raise!(StepWrongWorkName => name)
         }
     }

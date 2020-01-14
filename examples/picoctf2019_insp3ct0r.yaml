@@ -1,12 +1,7 @@
 version: 1
 steps:
-  - run: web/get_request > src
+  - run: web/inspector > src
     url: https://2019shell1.picoctf.com/problem/61676/
-  - run: web/get_request >> src
-    url: https://2019shell1.picoctf.com/problem/61676/mycss.css
-  - run: web/get_request >> src
-    url: https://2019shell1.picoctf.com/problem/61676/myjs.js
   - run: src/comments
     src: ${{ src }}
     language: web
-
