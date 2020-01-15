@@ -1,0 +1,6 @@
+version: 1
+steps:
+  - run: web/request
+    url: http://natas2.natas.labs.overthewire.org/files/users.txt
+    basic: natas2:ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi
+    regex: .*natas3.*

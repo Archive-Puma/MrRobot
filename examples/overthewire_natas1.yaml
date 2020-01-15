@@ -1,0 +1,6 @@
+version: 1
+steps:
+  - run: web/request
+    url: http://natas1.natas.labs.overthewire.org/
+    basic: natas1:gtVrDuiDfck831PqWsLEZy5gyDz1clto
+    regex: .*natas2.*

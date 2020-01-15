@@ -38,6 +38,10 @@ fn set_headers(data: &Yaml, variables: &Variables) -> header::HeaderMap {
     if let Some(cookies) = get_cookies(data, variables) {
         headers.insert(header::COOKIE, header::HeaderValue::from_str(&cookies).unwrap());
     }
+    if let Some(auth_basic) = get_auth_basic(data, variables) {
+        let auth: &str = &["Basic", &auth_basic].join(" ");
+        headers.insert(header::AUTHORIZATION, header::HeaderValue::from_str(auth).unwrap());
+    }
 
     headers
 }
@@ -57,6 +61,19 @@ fn get_cookies(data: &Yaml, variables: &Variables) -> Option<String> {
     if let Err(_) = maybe_cookies { maybe_cookies = steps::get_param("cookie", data, variables); }
     match maybe_cookies {
         Ok(cookies) => { debug!("cookies: {}", cookies); Some(cookies) }
+        Err(_) => None
+    }
+}
+
+fn get_auth_basic(data: &Yaml, variables: &Variables) -> Option<String> {
+    let maybe_basic: Value<String> = steps::get_param("basic", data, variables);
+    match maybe_basic {
+        Ok(basic) => {
+            match basic.ends_with("=") {
+                true => Some(basic),
+                false => Some(base64::encode(&basic).to_string())
+            }
+        }
         Err(_) => None
     }
 }

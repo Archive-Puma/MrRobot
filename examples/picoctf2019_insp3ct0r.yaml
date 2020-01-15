@@ -1,7 +1,5 @@
 version: 1
 steps:
-  - run: web/inspector > src
+  - run: web/inspector
     url: https://2019shell1.picoctf.com/problem/61676/
-  - run: src/comments
-    src: ${{ src }}
-    language: web
+    regex: .*flag.*
