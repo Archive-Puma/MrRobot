@@ -1,0 +1,6 @@
+version: 1
+steps:
+  - run: web/robots
+    url: http://2018shell.picoctf.com:10157/
+    filter and inspect: Disallow
+    regex: picoCTF\{.*\}

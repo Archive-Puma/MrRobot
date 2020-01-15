@@ -1,8 +1,6 @@
 version: 1
 steps:
-  - run: web/request > response
+  - run: web/request
     url: https://2019shell1.picoctf.com/problem/37829/flag
     useragent: picobrowser
-  - run: util/regex
-    text: ${{ response }}
-    pattern: picoCTF\{.*\}
+    regex: picoCTF\{.*\}

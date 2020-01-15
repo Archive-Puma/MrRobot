@@ -57,7 +57,14 @@ pub mod steps {
             let (name, output): (String, Option<String>) = split_run(&step)?;
             info!("------> Running work: {}", &name);
 
-            let mut result: Variable = run_step(&name, step, &variables)?;
+            let mut result: Variable = run_step(&name,step,&variables)?;
+
+            if let Ok(regex) = get_param("regex", step, &variables) {
+                let current_data = YamlLoader::load_from_str(&format!("text: {:?}\npattern: {:?}", result.to_string(), regex))
+                    .unwrap().first().unwrap().clone();
+                result = util::regex(&current_data, &variables)?;
+            }
+
             match output {
                 None => { report.append(result.to_string()); }
                 Some(mut variable) => {

@@ -1,8 +1,6 @@
 version: 1
 steps:
-  - run: web/robots > disallow
+  - run: web/robots
     url: https://2019shell1.picoctf.com/problem/45102
     filter and inspect: Disallow
-  - run: util/regex
-    text: ${{ disallow }}
-    pattern: picoCTF\{.*\}
+    regex: picoCTF\{.*\}
