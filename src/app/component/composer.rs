@@ -1,6 +1,6 @@
 use crate::{debug, get, info, raise, Value, Variable};
 
-use yaml_rust::YamlLoader;
+use yaml_rust::{YamlEmitter, YamlLoader};
 pub use yaml_rust::Yaml;
 
 use std::path::Path;
@@ -99,6 +99,19 @@ pub mod steps {
         }
 
         Ok(value)
+    }
+
+    pub fn change_attribute(data: &Yaml, attribute: &str, value: &str) -> Yaml {
+        let mut from_yaml = String::new();
+        let mut emitter: YamlEmitter = YamlEmitter::new(&mut from_yaml);
+        emitter.dump(data).unwrap();
+        
+        let new_data: String = from_yaml.split("\n").map(|attr| {
+            if attr.starts_with(attribute) { [attribute,value].join(": ") }
+            else { attr.to_string() }
+        }).fold(String::new(), |result,attr| [result,attr].join("\n"));
+        
+        YamlLoader::load_from_str(&new_data).unwrap().first().unwrap().clone()
     }
 
     fn get_variable(name: &str) -> Option<String> {

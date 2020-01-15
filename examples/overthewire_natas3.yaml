@@ -1,0 +1,6 @@
+version: 1
+steps:
+  - run: web/robots
+    url: http://natas3.natas.labs.overthewire.org
+    basic: natas3:sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
+    filter and inspect: Disallow
