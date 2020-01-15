@@ -1,6 +1,6 @@
 version: 1
 steps:
-  - run: web/get_request > response
+  - run: web/request > response
     url: https://2019shell1.picoctf.com/problem/47307/flag
     cookies: admin=True
   - run: util/regex

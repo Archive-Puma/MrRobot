@@ -16,6 +16,7 @@ pub enum Exception {
     StepWrongWorkName(String),
     StepNoParam(String),
     StepWrongVariable(String),
+    StepWrongMethod(String),
 
     NoInternetConnection
 }
@@ -37,6 +38,8 @@ impl Exception {
             Exception::StepWrongWorkName(name) => format!("The work '{}' does not exists", name),
             Exception::StepNoParam(name)       => format!("Parameter '{}' not specified", name),
             Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name),
+            Exception::StepWrongMethod(name)   => format!("Only methods GET and POST are allowed (current: {})", name),
+
             Exception::NoInternetConnection    => format!("Unable to make the request: Bad url or no Internet connection")
         }
     }

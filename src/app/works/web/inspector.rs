@@ -1,4 +1,4 @@
-use crate::{composer::steps, create_work, debug, regex, works::web::get_request, Value, Variable, Variables, Yaml};
+use crate::{composer::steps, create_work, debug, regex, works::web::request, Value, Variable, Variables, Yaml};
 
 use yaml_rust::YamlLoader;
 
@@ -39,7 +39,7 @@ fn get_js_and_css(url: &str, html: &str, variables: &Variables) -> Value<String>
 fn inspect(link: &str, variables: &Variables) -> Value<String> {
     let current_data: Yaml = YamlLoader::load_from_str(&format!("url: {}", link))
         .unwrap().first().unwrap().clone();
-    let request: Variable = get_request(&current_data, variables)?;
+    let request: Variable = request(&current_data, variables)?;
 
     Ok(request.to_string())
 }

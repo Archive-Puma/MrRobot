@@ -55,7 +55,7 @@ pub mod steps {
 
         for(_, step) in steps.iter().enumerate() {
             let (name, output): (String, Option<String>) = split_run(&step)?;
-            info!("Work: {}", &name);
+            info!("------> Running work: {}", &name);
 
             let mut result: Variable = run_step(&name, step, &variables)?;
             match output {
@@ -115,10 +115,11 @@ pub mod steps {
     fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<Variable> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
+            "protocol/ssh"    => protocol::ssh(data,variables),
             "src/comments"    => src::comments(data,variables),
             "util/print"      => util::print(data,variables),
             "util/regex"      => util::regex(data,variables),
-            "web/get_request" => web::get_request(data,variables),
+            "web/request"     => web::request(data,variables),
             "web/inspector"   => web::inspector(data,variables),
             "web/robots"      => web::robots(data,variables),
             _ => raise!(StepWrongWorkName => name)

@@ -1,0 +1,8 @@
+version: 1
+steps:
+  - run: web/request > request
+    method: POST
+    url: http://2018shell.picoctf.com:44730/button2.php
+  - run: util/regex
+    text: ${{ request }}
+    pattern: picoCTF\{.*\}

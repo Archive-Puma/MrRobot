@@ -1,4 +1,4 @@
-use crate::{composer::steps, create_work, debug, Exception, regex, works::web::get_request, works::web::inspector, Variable, Variables, Value, Yaml};
+use crate::{composer::steps, create_work, debug, Exception, regex, works::web::request, works::web::inspector, Variable, Variables, Value, Yaml};
 
 use yaml_rust::YamlLoader;
 
@@ -28,7 +28,7 @@ create_work!(robots; data, variables => {
 fn get_robots(url: &str, variables: &Variables) -> Value<String> {
     let current_data: Yaml = YamlLoader::load_from_str(&format!("url: {}/robots.txt", url))
         .unwrap().first().unwrap().clone();
-    let robots: Value<Variable> = get_request(&current_data, variables);
+    let robots: Value<Variable> = request(&current_data, variables);
 
     match robots {
         Ok(value) => Ok(value.to_string()),

@@ -1,13 +1,29 @@
-use crate::{composer::steps, create_work, debug, default, get, Value, Variable, Variables, warn, Yaml};
+use crate::{composer::steps, create_work, debug, default, get, raise, Value, Variable, Variables, warn, Yaml};
 
 use reqwest::{blocking::Client,blocking::Response,header};
 
-create_work!(get_request; data, variables => {
+create_work!(request; data, variables => {
     let url: String = steps::get_param("url", data, variables)?;
-    debug!("url: {}", url);
+    
+    let maybe_method: Value<String> = steps::get_param("method", data, variables);
+    let method: String = match maybe_method {
+        Ok(value) => match value.as_ref() {
+            "POST" | "GET" => value,
+            other => raise!(StepWrongMethod => other)?
+        },
+        Err(_) => "GET".to_string()
+    };
+    
+    debug!("{} request: {}", method, url);
 
     let client: Client = Client::new();
-    let response: Response = get!(result; client.get(&url).headers(set_headers(data, variables)).send() => NoInternetConnection)?;
+    let request = match method.as_ref() {
+        "GET" => client.get(&url),
+        "POST" => client.post(&url),
+        _ => unreachable!() 
+    };
+
+    let response: Response = get!(result; request.headers(set_headers(data, variables)).send() => NoInternetConnection)?;
 
     debug!("status code: {}", response.status());
     let result: String = get!(result; response.text() => ComposerEmpty)?;
