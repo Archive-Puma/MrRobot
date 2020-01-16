@@ -155,6 +155,7 @@ pub mod steps {
         match name {
             "crypto/base64"   => crypto::base64(data,variables),
             "crypto/md5"      => crypto::md5(data,variables),
+            "crypto/sha256"   => crypto::sha256(data,variables),
             "src/comments"    => src::comments(data,variables),
             "util/format"     => util::format(data,variables),
             "util/print"      => util::print(data,variables),
