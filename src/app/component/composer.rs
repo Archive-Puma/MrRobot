@@ -160,6 +160,7 @@ pub mod steps {
             "util/format"     => util::format(data,variables),
             "util/print"      => util::print(data,variables),
             "util/regex"      => util::regex(data,variables),
+            "util/string"     => util::string(data,variables),
             "web/request"     => web::request(data,variables),
             "web/inspector"   => web::inspector(data,variables),
             "web/robots"      => web::robots(data,variables),

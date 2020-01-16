@@ -6,3 +6,6 @@ pub use print::print;
 
 mod format;
 pub use format::format;
+
+mod string;
+pub use string::string;

@@ -1,0 +1,10 @@
+version: 1
+steps:
+  - run: crypto/base64
+    decode: UmVjdWVyZGEgcXVlIGN1YW5kbyBjb2RpZmljYXMgYWxnbyBlbiBiYXNlNjQgTk8gbG8gZXN0w6FzIGNpZnJhbmRvLCBzaW5vIHF1ZSBzaW1wbGVtZW50ZSBsbyBlc3TDoXMgY29kaWZpY2FuZG8uDQoNCkxhIGNvbnRyYXNlw7FhIHBhcmEgc3VwZXJhciBlc3RlIHJldG8gZXM6IHJlY3VlcmRhcXVlYmFzZTY0Tk9lc2NpZnJhcg0KCg==
+    regex: .*contraseña.*
+  
+  - run: crypto/md5
+    encode: recuerdaquebase64NOescifrar
+    format: flag{^v^}
+

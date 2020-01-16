@@ -1,5 +1,10 @@
 version: 1
 steps:
-  - run: crypto/md5
+  - run: crypto/md5 > md5
     decode: 54f662a095fa3d5fbbdaac72d176701b
+  - run: util/string > plain
+    string: ${{ md5 }}
+    convert: uppercase
+  - run: crypto/md5
+    encode: ${{ plain }}
     format: flag{^v^}
