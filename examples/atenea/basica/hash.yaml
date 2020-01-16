@@ -2,3 +2,4 @@ version: 1
 steps:
   - run: crypto/md5
     encode: LearnTheHashFunction
+    format: flag{^v^}

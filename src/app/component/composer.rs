@@ -65,6 +65,13 @@ pub mod steps {
                 result = util::regex(&current_data, &variables)?;
             }
 
+            if let Ok(format) = get_param("format", step, &variables) {
+                variables.insert("\x01".to_string(), result);
+                let mut current_data: Yaml = steps::append_attribute(step, "text", &format);
+                current_data = steps::append_attribute(&current_data, "variables", "\x01");
+                result = util::format(&current_data, &variables)?;
+            }
+
             match output {
                 None => { report.append(result.to_string()); }
                 Some(mut variable) => {
@@ -99,6 +106,17 @@ pub mod steps {
         }
 
         Ok(value)
+    }
+
+    pub fn append_attribute(data: &Yaml, attribute: &str, value: &str) -> Yaml {
+        let mut from_yaml = String::new();
+        let mut emitter: YamlEmitter = YamlEmitter::new(&mut from_yaml);
+        emitter.dump(data).unwrap();
+        
+        let new_attr: String = [attribute,value].join(": ").to_string();
+        let new_data: String = [from_yaml,new_attr].join("\n");
+        
+        YamlLoader::load_from_str(&new_data).unwrap().first().unwrap().clone()
     }
 
     pub fn change_attribute(data: &Yaml, attribute: &str, value: &str) -> Yaml {
@@ -138,6 +156,7 @@ pub mod steps {
             "crypto/base64"   => crypto::base64(data,variables),
             "crypto/md5"      => crypto::md5(data,variables),
             "src/comments"    => src::comments(data,variables),
+            "util/format"     => util::format(data,variables),
             "util/print"      => util::print(data,variables),
             "util/regex"      => util::regex(data,variables),
             "web/request"     => web::request(data,variables),
