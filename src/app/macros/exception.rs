@@ -6,6 +6,9 @@ macro_rules! raise {
     ($exception:ident => $name:expr) => {
         Err(crate::Exception::$exception($name.to_string()))
     };
+    ($exception:ident => $one:expr,$two:expr) => {
+        Err(crate::Exception::$exception($one.to_string(),$two.to_string()))
+    };
 }
 
 #[macro_export]

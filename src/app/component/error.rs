@@ -17,6 +17,7 @@ pub enum Exception {
     StepNoParam(String),
     StepWrongVariable(String),
     StepWrongMethod(String),
+    StepIncompatibleAttr(String,String),
 
     NoInternetConnection
 }
@@ -24,23 +25,24 @@ pub enum Exception {
 impl Exception {
     pub fn message(&self) -> String {
         match self {
-            Exception::ComposerNotFound        => format!("Cannot read the composer (No such file)"),
-            Exception::ComposerNoExtension     => format!("The composer has no extension"),
-            Exception::ComposerWrongExtension  => format!("The composer has no YAML extension"),
-            Exception::ComposerEmpty           => format!("The composer is empty"),
-            Exception::ComposerWrongFormat     => format!("YAML syntax error in composer"),
-            Exception::ComposerNoVersion       => format!("Numeric attribute 'version' not specified in composer"),
-            Exception::ComposerWrongVersion    => format!("Numeric attribute 'version' has a wrong value (should be: 1)"),
-            Exception::ComposerNoSteps         => format!("Vectorial attribute 'steps' not specified in composer"),
+            Exception::ComposerNotFound                => format!("Cannot read the composer (No such file)"),
+            Exception::ComposerNoExtension             => format!("The composer has no extension"),
+            Exception::ComposerWrongExtension          => format!("The composer has no YAML extension"),
+            Exception::ComposerEmpty                   => format!("The composer is empty"),
+            Exception::ComposerWrongFormat             => format!("YAML syntax error in composer"),
+            Exception::ComposerNoVersion               => format!("Numeric attribute 'version' not specified in composer"),
+            Exception::ComposerWrongVersion            => format!("Numeric attribute 'version' has a wrong value (should be: 1)"),
+            Exception::ComposerNoSteps                 => format!("Vectorial attribute 'steps' not specified in composer"),
 
-            Exception::StepNoRunAttribute      => format!("At least one of the steps does not have the 'run' attribute"),
-            Exception::StepWrongRunAttribute   => format!("Run attribute is wrong"),
-            Exception::StepWrongWorkName(name) => format!("The work '{}' does not exists", name),
-            Exception::StepNoParam(name)       => format!("Parameter '{}' not specified", name),
-            Exception::StepWrongVariable(name) => format!("The variable '{}' does not exists", name),
-            Exception::StepWrongMethod(name)   => format!("Only methods GET and POST are allowed (current: {})", name),
+            Exception::StepNoRunAttribute              => format!("At least one of the steps does not have the 'run' attribute"),
+            Exception::StepWrongRunAttribute           => format!("Run attribute is wrong"),
+            Exception::StepWrongWorkName(name)         => format!("The work '{}' does not exists", name),
+            Exception::StepNoParam(name)               => format!("Parameter '{}' not specified", name),
+            Exception::StepWrongVariable(name)         => format!("The variable '{}' does not exists", name),
+            Exception::StepWrongMethod(name)           => format!("Only methods GET and POST are allowed (current: {})", name),
+            Exception::StepIncompatibleAttr(one,two)   => format!("Can not set both params at the same time: {}, {}", one, two),
 
-            Exception::NoInternetConnection    => format!("Unable to make the request: Bad url or no Internet connection")
+            Exception::NoInternetConnection            => format!("Unable to make the request: Bad url or no Internet connection")
         }
     }
 }
