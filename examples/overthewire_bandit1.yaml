@@ -1,7 +1,0 @@
-version: 1
-steps:
-  - run: protocol/ssh
-    host: bandit.labs.overthewire.org
-    port: 34668
-    username: bandit0
-    password: bandit0

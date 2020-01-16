@@ -135,7 +135,6 @@ pub mod steps {
     fn run_step(name: &str, data: &Yaml, variables: &Variables) -> Value<Variable> {
         println!("{} {} {}", "[*]".bold().blue(), "Running".blue(), name.bold().blue());
         match name {
-            "protocol/ssh"    => protocol::ssh(data,variables),
             "src/comments"    => src::comments(data,variables),
             "util/print"      => util::print(data,variables),
             "util/regex"      => util::regex(data,variables),
