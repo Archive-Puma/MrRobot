@@ -23,7 +23,10 @@ create_work!(request; data, variables => {
         _ => unreachable!() 
     };
 
-    let response: Response = get!(result; request.headers(set_headers(data, variables)).send() => NoInternetConnection)?;
+    let response: Response = get!(result; match get_header("body", data, variables) {
+        None =>       request,
+        Some(body) => request.body(body)
+    }.headers(set_headers(data, variables)).send() => NoInternetConnection)?;
 
     debug!("status code: {}", response.status());
     let result: String = get!(result; response.text() => ComposerEmpty)?;
@@ -35,15 +38,31 @@ fn set_headers(data: &Yaml, variables: &Variables) -> header::HeaderMap {
     if let Some(useragent) = get_useragent(data, variables) {
         headers.insert(header::USER_AGENT, header::HeaderValue::from_str(&useragent).unwrap());
     }
-    if let Some(cookies) = get_cookies(data, variables) {
+
+    if let Some(cookies) = get_header("cookies", data, variables) {
+        headers.insert(header::COOKIE, header::HeaderValue::from_str(&cookies).unwrap());
+    } else if let Some(cookies) = get_header("cookie", data, variables) {
         headers.insert(header::COOKIE, header::HeaderValue::from_str(&cookies).unwrap());
     }
+
     if let Some(auth_basic) = get_auth_basic(data, variables) {
         let auth: &str = &["Basic", &auth_basic].join(" ");
         headers.insert(header::AUTHORIZATION, header::HeaderValue::from_str(auth).unwrap());
     }
 
+    if let Some(referer) = get_header("referer", data, variables) {
+        headers.insert(header::REFERER, header::HeaderValue::from_str(&referer).unwrap());
+    }
+
     headers
+}
+
+fn get_header(name: &str, data: &Yaml, variables: &Variables) -> Option<String> {
+    let maybe_header: Value<String> = steps::get_param(name, data, variables);
+    match maybe_header {
+        Ok(header) => { debug!("{}: {}", name, header); Some(header) }
+        Err(_) => None
+    }
 }
 
 fn get_useragent(data: &Yaml, variables: &Variables) -> Option<String> {
@@ -53,15 +72,6 @@ fn get_useragent(data: &Yaml, variables: &Variables) -> Option<String> {
         Ok(ua) => { debug!("user agent: {}", ua); Some(ua) }
         Err(_) => { warn!("Not User-Agent specified. Set to default: {}", default::USER_AGENT);
             Some(default::USER_AGENT.to_string()) }
-    }
-}
-
-fn get_cookies(data: &Yaml, variables: &Variables) -> Option<String> {
-    let mut maybe_cookies: Value<String> = steps::get_param("cookies", data, variables);
-    if let Err(_) = maybe_cookies { maybe_cookies = steps::get_param("cookie", data, variables); }
-    match maybe_cookies {
-        Ok(cookies) => { debug!("cookies: {}", cookies); Some(cookies) }
-        Err(_) => None
     }
 }
 

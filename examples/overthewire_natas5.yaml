@@ -1,0 +1,7 @@
+version: 1
+steps:
+  - run: web/request
+    url: http://natas5.natas.labs.overthewire.org
+    basic: natas5:iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq
+    cookie: loggedin=1
+    regex: .*natas6.*
