@@ -54,6 +54,10 @@ fn set_headers(data: &Yaml, variables: &Variables) -> header::HeaderMap {
         headers.insert(header::REFERER, header::HeaderValue::from_str(&referer).unwrap());
     }
 
+    if let Some(xforwardedfor) = get_header("x-forwarded-for", data, variables) {
+        headers.insert(header::HeaderName::from_bytes(b"X-Forwarded-For").unwrap(), header::HeaderValue::from_str(&xforwardedfor).unwrap());
+    }
+
     headers
 }
 
