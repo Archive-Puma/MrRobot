@@ -8,3 +8,7 @@ steps:
   - run: crypto/md5
     encode: ${{ plain }}
     format: flag{^v^}
+
+  - run: crypto/md5
+    encode: 00000018667479706D703432
+    format: flag{^v^}
