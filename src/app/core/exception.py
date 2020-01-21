@@ -1,0 +1,2 @@
+class Elliot(Exception):
+    pass
