@@ -5,6 +5,10 @@ from configparser import ConfigParser
 DEFAULT_FILE = "mrrobot.ini"
 DEFAULT_FLAG = ".*"
 DEFAULT_THREADS = 4
+DEFAULT_UNITS = ["esoteric"]
+# Enabled units
+ALL_UNITS_DISABLED = [False]
+UNITS_CATEGORIES = ["esoteric"]
 
 def default():
     # Check if the file exists
@@ -14,7 +18,7 @@ def default():
         # Set the default values
         config["DEFAULT"] = { "Threads": DEFAULT_THREADS }
         # Set the CTF values
-        config["CTF"] = { "Flag": DEFAULT_FLAG }
+        config["CTF"] = { "Flag": DEFAULT_FLAG, "Units": DEFAULT_UNITS }
         # Create the config file
         with open(DEFAULT_FILE, "w") as configfile:
             config.write(configfile)
@@ -29,10 +33,18 @@ def configure(config):
     else:
         configuration["Threads"] = None
     # CTF configuration
+    configuration["Units"] = ALL_UNITS_DISABLED
     if config["CTF"]:
-        configuration["Flag"] = config["CTF"]["Flag"] if config["CTF"]["Flag"] else DEFAULT_FLAG
+        configuration["Flag"]   = config["CTF"]["Flag"] if config["CTF"]["Flag"] else DEFAULT_FLAG
+        # Enable the units
+        units = config["CTF"]["Units"] if config["CTF"]["Units"] and type(config["CTF"]["Units"]) is list else DEFAULT_UNITS
+        for unit in units:
+            if unit in UNITS_CATEGORIES:
+                idx = UNITS_CATEGORIES.index(unit)
+                configuration["Units"][idx] = True
     else:
-        configuration["Flag"] = DEFAULT_FLAG
+        configuration["Flag"]   = DEFAULT_FLAG
+        configuration["Units"]  = ALL_UNITS_DISABLED
     # Return configuration
     return configuration
 

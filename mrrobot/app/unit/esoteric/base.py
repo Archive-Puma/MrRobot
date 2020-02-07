@@ -21,8 +21,8 @@ class Esoteric(UnitBase,ABC):
         raise NotImplementedError
 
     def run(self):
+        self.verbose()
         result = None
-
         self.clean()
         if self.check(): result = self.evaluate()
         return result

@@ -8,8 +8,10 @@ class Unit(Esoteric):
         super().__init__(raw)
         self.regex  = rb"Ook([!?.])"
 
+    def id(self):
+        return "Esoteric::Ook"
+
     def evaluate(self):
-        print("---- Ook")
         result = None
         if len(self.code) % 2 == 0:
             bf_code = self.__ook2bf()

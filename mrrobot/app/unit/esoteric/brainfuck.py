@@ -8,8 +8,10 @@ class Unit(Esoteric):
         super().__init__(raw)
         self.regex  = rb"[><+-.,[\]]"
 
+    def id(self):
+        return "Esoteric::Brainfuck"
+    
     def evaluate(self):
-        print("---- Brainfuck")
         return self.__brainfuck()
             
     def __brainfuck(self):
