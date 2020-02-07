@@ -1,4 +1,4 @@
-from entrypoint import entrypoint
+from mrrobot import entrypoint
 
 if __name__ == '__main__':
     entrypoint()
