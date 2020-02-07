@@ -1,6 +1,0 @@
-version: 1
-steps:
-  - run: web/robots
-    url: https://2019shell1.picoctf.com/problem/45102
-    filter and inspect: Disallow
-    regex: picoCTF\{.*\}

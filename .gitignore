@@ -1,3 +1,4 @@
-/target
+build/
+.vscode/
 **/*.log
-**/*.rs.bk
+*.egg-info

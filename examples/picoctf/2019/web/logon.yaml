@@ -1,6 +1,0 @@
-version: 1
-steps:
-  - run: web/request
-    url: https://2019shell1.picoctf.com/problem/47307/flag
-    cookies: admin=True
-    regex: picoCTF\{.*\}

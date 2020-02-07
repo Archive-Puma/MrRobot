@@ -1,2 +1,0 @@
-class Elliot(Exception):
-    pass

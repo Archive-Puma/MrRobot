@@ -1,7 +1,0 @@
-version: 1
-steps:
-  - run: web/inspector > inspect
-    url: http://2018shell.picoctf.com:53213/
-  - run: src/comments
-    src: ${{ inspect }}
-    language: web

@@ -1,7 +1,0 @@
-version: 1
-steps:
-  - run: web/request
-    url: http://natas4.natas.labs.overthewire.org
-    basic: natas4:Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ
-    referer: http://natas5.natas.labs.overthewire.org/
-    regex: .*natas5.*

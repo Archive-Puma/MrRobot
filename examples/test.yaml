@@ -1,4 +1,0 @@
-version: 1
-workflow:
-  - run: crypto/base64
-    decode: SG9sYQ==
