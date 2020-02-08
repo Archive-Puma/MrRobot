@@ -1,11 +1,13 @@
+from os import cpu_count
 from os.path import isfile
 from configparser import ConfigParser
 
 # Default configuration
-DEFAULT_FILE = "mrrobot.ini"
-DEFAULT_FLAG = ".*"
-DEFAULT_THREADS = 4
-DEFAULT_UNITS = ["esoteric"]
+DEFAULT_FILE    = "mrrobot.ini"
+DEFAULT_FLAG    = ".*"
+DEFAULT_THREADS = cpu_count()
+DEFAULT_TIMEOUT = 10
+DEFAULT_UNITS   = ["esoteric"]
 # Enabled units
 ALL_UNITS_DISABLED = [False]
 UNITS_CATEGORIES = ["esoteric"]
@@ -16,7 +18,7 @@ def default():
         # Create the configurator
         config = ConfigParser()
         # Set the default values
-        config["DEFAULT"] = { "Threads": DEFAULT_THREADS }
+        config["DEFAULT"] = { "Threads": DEFAULT_THREADS, "Timeout": DEFAULT_TIMEOUT }
         # Set the CTF values
         config["CTF"] = { "Flag": DEFAULT_FLAG, "Units": DEFAULT_UNITS }
         # Create the config file
@@ -29,9 +31,11 @@ def configure(config):
     configuration = dict()
     # Default configuration
     if config["DEFAULT"]:
-        configuration["Threads"] = config["DEFAULT"]["Threads"] if config["DEFAULT"]["Threads"] else None
+        configuration["Threads"] = config["DEFAULT"]["Threads"] if config["DEFAULT"]["Threads"] else DEFAULT_THREADS
+        configuration["Timeout"] = config["DEFAULT"]["Timeout"] if config["DEFAULT"]["Timeout"] else DEFAULT_TIMEOUT
     else:
-        configuration["Threads"] = None
+        configuration["Threads"] = DEFAULT_THREADS
+        configuration["Timeout"] = DEFAULT_TIMEOUT
     # CTF configuration
     configuration["Units"] = ALL_UNITS_DISABLED
     if config["CTF"]:

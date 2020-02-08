@@ -1,0 +1,80 @@
+MrRobotCTF: Ok || Esoretic (10 points)
+
+    GorillaZ has released a new song and I spent all night
+    writting the lyrics in this file:
+
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook! Ook? Ook. Ook? Ook. Ook. Ook. Ook? Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook? Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook? Ook.
+        Ook! Ook! Ook? Ook! Ook. Ook? Ook. Ook? Ook. Ook?
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook! Ook. Ook. Ook? Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook? Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook! Ook. Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook.
+        Ook? Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook.
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook.
+        Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook? Ook.
+        Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook.
+        Ook. Ook? Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook. Ook? Ook. Ook? Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook. Ook?
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook! Ook. Ook! Ook! Ook! Ook. Ook? Ook.
+        Ook? Ook. Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook! Ook. Ook. Ook? Ook! Ook! Ook! Ook. Ook? Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook! Ook. Ook? Ook. Ook! Ook.
+        Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook.
+        Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook!
+        Ook! Ook! Ook! Ook! Ook! Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook! Ook. Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook. Ook.
+        Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook.
+
+    ~ It was a bit brainf*cked ~
+
+Flag format: MrRobotCTF{FLAG}

@@ -1,4 +1,5 @@
 import argparse
+from os import cpu_count
 
 def parse():
     # Name and description
@@ -51,7 +52,13 @@ def parse():
         "-T", "--threads",
         metavar="#",
         type=int,
-        help="Specifies the number of threads (Default: 4)")
+        help=f"Specifies the number of threads (Default: {cpu_count()})")
+    # Threads
+    performance.add_argument(
+        "--timeout",
+        metavar="SECONDS",
+        type=float,
+        help="Set the timeout to the specified number of seconds (Default: 10. Disabled: 0)")
     # ---- Units Group
     units = parser.add_argument_group(title="available categories")
     # All

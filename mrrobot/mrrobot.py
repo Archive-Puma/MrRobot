@@ -7,7 +7,8 @@ import re
 import threading
 from os import remove
 from os.path import exists, isfile
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import as_completed, ThreadPoolExecutor
+from pebble import ProcessPool
 
 # challenge = b"Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook. Ook! Ook. Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook. Ook! Ook. Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook! Ook! Ook? Ook! Ook? Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook? Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook. Ook? Ook. Ook? Ook. Ook. Ook! Ook. Ook! Ook? Ook! Ook! Ook? Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook."
 
@@ -19,18 +20,19 @@ def is_solved(flagformat,result):
 def flow(units,config):
     # Init the needed variables
     method, flag = None, None
-    # Create a thread pool with all the threads
-    with ThreadPoolExecutor(max_workers=config["Threads"]) as executor:
+    with ProcessPool(max_workers=config["Threads"]) as pool:
         # Start all the threads
-        threads = [ (units[name].id(), executor.submit(units[name].run)) for name in units ]
-        # Check the threads result
-        idx = 0
-        # Find the good result
-        while not flag and idx < len(threads):
-            (method, thread) = threads[idx]
-            result = thread.result()
-            if result: flag = is_solved(config["Flag"],result)
-            idx += 1
+        threads = { pool.schedule(units[name].run, timeout=config["Timeout"]): units[name].id() for name in units }
+        # Get the results
+        for thread in threads:
+            method = threads[thread]
+            try:
+                result = thread.result()
+                if result:
+                    flag = is_solved(config["Flag"],result)
+                    if flag: break
+            except:
+                print(f"-- Timeout {method}")
     # Return the flag or the finished state 
     return (method,flag)
 
@@ -50,6 +52,8 @@ def get_configuration():
     config = configuration.parse(args.config)
     # Flag
     config["Flag"] = args.flag if args.flag else config["Flag"]
+    # Timeout
+    config["Timeout"] = args.timeout if args.timeout else float(config["Timeout"])
     # Threads
     config["Threads"] = args.threads and args.threads > 0 if args.threads else int(config["Threads"])
     # Units
