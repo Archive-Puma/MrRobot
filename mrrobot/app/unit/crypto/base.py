@@ -3,7 +3,7 @@ from app.unit.base import UnitBase
 import re
 from abc import ABC,abstractmethod
 
-class Esoteric(UnitBase,ABC):
+class Crypto(UnitBase,ABC):
     def __init__(self, raw):
         self.raw        = raw
         self.code       = list()
@@ -22,7 +22,6 @@ class Esoteric(UnitBase,ABC):
 
     def run(self):
         self.verbose()
-        
         result = None
         self.clean()
         if self.check(): result = self.evaluate()

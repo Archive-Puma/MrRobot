@@ -3,14 +3,15 @@ from os.path import isfile
 from configparser import ConfigParser
 
 # Default configuration
+DEFAULT_CODING  = "utf-8"
 DEFAULT_FILE    = "mrrobot.ini"
-DEFAULT_FLAG    = ".*"
+DEFAULT_FLAG    = "MrRobotCTF{.*}"
 DEFAULT_THREADS = cpu_count()
 DEFAULT_TIMEOUT = 10
-DEFAULT_UNITS   = ["esoteric"]
+DEFAULT_UNITS   = ["crypto","esoteric"]
 # Enabled units
-ALL_UNITS_DISABLED = [False]
-UNITS_CATEGORIES = ["esoteric"]
+UNITS_CATEGORIES    = DEFAULT_UNITS
+ALL_UNITS_DISABLED  = [False] * len(DEFAULT_UNITS)
 
 def default():
     # Check if the file exists
@@ -18,7 +19,8 @@ def default():
         # Create the configurator
         config = ConfigParser()
         # Set the default values
-        config["DEFAULT"] = { "Threads": DEFAULT_THREADS, "Timeout": DEFAULT_TIMEOUT }
+        config["DEFAULT"] = {
+            "Threads": DEFAULT_THREADS, "Timeout": DEFAULT_TIMEOUT, "Coding": DEFAULT_CODING }
         # Set the CTF values
         config["CTF"] = { "Flag": DEFAULT_FLAG, "Units": DEFAULT_UNITS }
         # Create the config file
@@ -31,11 +33,13 @@ def configure(config):
     configuration = dict()
     # Default configuration
     if config["DEFAULT"]:
-        configuration["Threads"] = config["DEFAULT"]["Threads"] if config["DEFAULT"]["Threads"] else DEFAULT_THREADS
-        configuration["Timeout"] = config["DEFAULT"]["Timeout"] if config["DEFAULT"]["Timeout"] else DEFAULT_TIMEOUT
+        configuration["Coding"]     = config["DEFAULT"]["Coding"] if config["DEFAULT"]["Coding"] else DEFAULT_CODING
+        configuration["Threads"]    = config["DEFAULT"]["Threads"] if config["DEFAULT"]["Threads"] else DEFAULT_THREADS
+        configuration["Timeout"]    = config["DEFAULT"]["Timeout"] if config["DEFAULT"]["Timeout"] else DEFAULT_TIMEOUT
     else:
-        configuration["Threads"] = DEFAULT_THREADS
-        configuration["Timeout"] = DEFAULT_TIMEOUT
+        configuration["Coding"]     = DEFAULT_CODING
+        configuration["Threads"]    = DEFAULT_THREADS
+        configuration["Timeout"]    = DEFAULT_TIMEOUT
     # CTF configuration
     configuration["Units"] = ALL_UNITS_DISABLED
     if config["CTF"]:

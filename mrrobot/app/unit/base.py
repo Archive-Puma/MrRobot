@@ -11,4 +11,7 @@ class UnitBase(ABC):
 
     def verbose(self):
         print(f"-- Running {self.id()}")
+
+    def priority(self):
+        return 50
         

@@ -47,13 +47,19 @@ def parse():
         "--no-banner",
         action="store_true",
         help="Hides the banner")
+    # Coding
+    performance.add_argument(
+        "--coding",
+        metavar="CODING",
+        type=str,
+        help="Set the encoding method (Default: utf-8)")
     # Threads
     performance.add_argument(
         "-T", "--threads",
         metavar="#",
         type=int,
         help=f"Specifies the number of threads (Default: {cpu_count()})")
-    # Threads
+    # Timeout
     performance.add_argument(
         "--timeout",
         metavar="SECONDS",
