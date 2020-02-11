@@ -10,7 +10,8 @@ class UnitBase(ABC):
         raise NotImplementedError
 
     def verbose(self):
-        print(f"-- Running {self.id()}")
+        category, unit = self.id().split("::", 1)
+        print(f"[*] Testing {unit} unit from {category} category")
 
     def priority(self):
         return 50

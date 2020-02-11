@@ -10,7 +10,7 @@ DEFAULT_THREADS = cpu_count()
 DEFAULT_TIMEOUT = 10
 DEFAULT_UNITS   = ["crypto","esoteric"]
 # Enabled units
-UNITS_CATEGORIES    = DEFAULT_UNITS
+UNITS_CATEGORIES    = DEFAULT_UNITS[:]
 ALL_UNITS_DISABLED  = [False] * len(DEFAULT_UNITS)
 
 def default():
@@ -41,7 +41,7 @@ def configure(config):
         configuration["Threads"]    = DEFAULT_THREADS
         configuration["Timeout"]    = DEFAULT_TIMEOUT
     # CTF configuration
-    configuration["Units"] = ALL_UNITS_DISABLED
+    configuration["Units"] = ALL_UNITS_DISABLED[:]
     if config["CTF"]:
         configuration["Flag"]   = config["CTF"]["Flag"] if config["CTF"]["Flag"] else DEFAULT_FLAG
         # Enable the units
@@ -52,7 +52,7 @@ def configure(config):
                 configuration["Units"][idx] = True
     else:
         configuration["Flag"]   = DEFAULT_FLAG
-        configuration["Units"]  = ALL_UNITS_DISABLED
+        configuration["Units"]  = ALL_UNITS_DISABLED[:]
     # Return configuration
     return configuration
 

@@ -75,7 +75,13 @@ def parse():
     )
     # Esoteric
     units.add_argument(
-        "-e", "--esoteric",
+        "-uc", "--crypto",
+        action="store_true",
+        help="Loads the crypto units"
+    )
+    # Esoteric
+    units.add_argument(
+        "-ue", "--esoteric",
         action="store_true",
         help="Loads the esoteric units"
     )

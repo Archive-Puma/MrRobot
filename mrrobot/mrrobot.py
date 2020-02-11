@@ -77,11 +77,11 @@ def get_configuration():
     # Coding
     config["Coding"] = args.coding.lower() if args.coding else str(config["Coding"]).lower()
     # Units
-    if args.esoteric: # or args.crypto or ...
-        config["Units"] = ALL_UNITS_DISABLED
+    config["Units"] = [ True ] * len(UNITS_CATEGORIES)
+    if not args.all and (args.esoteric or args.crypto): # or ...
+        config["Units"] = ALL_UNITS_DISABLED[:]
+        if args.crypto: config["Units"][UNITS_CATEGORIES.index("crypto")] = True
         if args.esoteric: config["Units"][UNITS_CATEGORIES.index("esoteric")] = True
-    if args.all or not any(config["Units"]):
-        config["Units"] = [ True ] *  len(units)
     if not inpt: inpt = args.input.encode(config["Coding"]) 
     # Return the configuration
     return inpt, config
@@ -114,8 +114,8 @@ def entrypoint():
     # Run the program
     (method, flag) = flow(enabled_units,config)
     # Print the result
-    if flag:    print(f"Flag\t{flag}\nMethod\t{method}")
-    else:       print("Cannot find the flag :(")
+    if flag:    print(f"[+] Flag\t{flag}\n[+] Method\t{method}")
+    else:       print("[-] Cannot find the flag :(")
 
 if __name__ == '__main__':
     entrypoint()

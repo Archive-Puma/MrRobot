@@ -9,7 +9,7 @@ class Unit(Esoteric):
         self.regex  = rb"Ook([!?.])"
 
     def id(self):
-        return "Esoteric::Ook"
+        return "esoteric::ook"
 
     def evaluate(self):
         result = None

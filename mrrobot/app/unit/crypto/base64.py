@@ -8,7 +8,7 @@ class Unit(Crypto):
         self.regex  = rb"\b([a-zA-Z0-9\+/]+)=*\b"
 
     def id(self):
-        return "Crypto::Base64"
+        return "crypto::base64"
     
     def evaluate(self):
         return self.__decode()

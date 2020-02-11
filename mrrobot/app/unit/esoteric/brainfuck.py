@@ -9,7 +9,7 @@ class Unit(Esoteric):
         self.regex  = rb"[><+-.,[\]]"
 
     def id(self):
-        return "Esoteric::Brainfuck"
+        return "esoteric::brainfuck"
     
     def evaluate(self):
         return self.__brainfuck()
