@@ -1,5 +1,4 @@
 import argparse
-from os import cpu_count
 
 def parse():
     # Name and description
@@ -13,7 +12,7 @@ def parse():
     information.add_argument(
         "--version",
         action="version",
-        version="MrRobot v1.0.0 (Python)",
+        version="MrRobot v1.0.0",
         help="Prints the version")
     # ---- Challenge
     chellenge = parser.add_argument_group(title="challenge")
@@ -53,12 +52,6 @@ def parse():
         metavar="CODING",
         type=str,
         help="Set the encoding method (Default: utf-8)")
-    # Threads
-    performance.add_argument(
-        "-T", "--threads",
-        metavar="#",
-        type=int,
-        help=f"Specifies the number of threads (Default: {cpu_count()})")
     # Timeout
     performance.add_argument(
         "--timeout",
@@ -73,7 +66,7 @@ def parse():
         action="store_true",
         help="Loads all the units (Default)"
     )
-    # Esoteric
+    # Crypto
     units.add_argument(
         "-uc", "--crypto",
         action="store_true",

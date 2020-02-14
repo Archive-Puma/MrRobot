@@ -7,7 +7,6 @@ verify_ssl = true
 
 [packages]
 argparse = "==1.4.0"
-pebble = "==4.5.0"
 
 [requires]
 python_version = "3.8"
