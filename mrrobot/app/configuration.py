@@ -7,7 +7,7 @@ class Configuration:
     def __init__(self):
         # Public attributes
         self.CODING     :str    = "utf-8"
-        self.FLAG       :bytes  = rb"(.*)"
+        self.FLAG       :str    = "MrRobotCTF{.*}"
         self.TIMEOUT    :float  = 10.0
         # Private attributes
         self.__FILE:str = "mrrobot.ini"
