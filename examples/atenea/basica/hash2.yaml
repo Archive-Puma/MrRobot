@@ -1,7 +1,0 @@
-version: 1
-steps:
-  - run: crypto/sha256 > sha
-    encode: ThisIsAMoreSecureHashFunction
-  - run: crypto/md5
-    encode: ${{ sha }}
-    format: flag{^v^}

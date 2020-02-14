@@ -1,3 +1,7 @@
-/target
+dist/
+build/
+.vscode/
 **/*.log
-**/*.rs.bk
+**/*.pyc
+**/*.egg-info
+**/__pycache__

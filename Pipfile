@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+argparse = "==1.4.0"
 
 [requires]
 python_version = "3.8"
