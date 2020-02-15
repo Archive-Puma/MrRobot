@@ -8,12 +8,9 @@ def main() -> None:
     start_time: float = performance()
     conn_parent,conn_unit = Pipe(duplex=False)
     
-    args:dict = app.arguments()
-    config:Configuration = Configuration()
-    configfile = args.config if "config" in args else None
-    config.load(configfile)
-
-    units:list = app.units(args['challenge'],pipe=conn_unit)
+    args = app.arguments()
+    config:Configuration = app.configuration(args)
+    units:list = app.units(args.input,config=config,pipe=conn_unit)
     processes:list = app.processes(units)
     app.execution(processes)
     app.search(processes,pipe=conn_parent,start=start_time,timeout=5)

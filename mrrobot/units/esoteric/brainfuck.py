@@ -4,8 +4,8 @@ import re
 import sys
 
 class Unit(UnitBase):
-    def __init__(self,pipe=None,lock=None):
-        super().__init__(pipe=pipe,lock=lock)
+    def __init__(self,config,pipe=None,lock=None):
+        super().__init__(config=config,pipe=pipe,lock=lock)
         self.ID     = ("esoteric","brainfuck")
         self._REGEX = rb"([><+-.,[\]])"
     

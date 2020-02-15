@@ -27,7 +27,7 @@ def parse():
         "-f", "--flag",
         metavar="FLAG",
         action="store",
-        help="Specifies the regex-based flag format (Default: .*)")
+        help="Specifies the regex-based flag format (Default: MrRobotCTF{.*})")
     # ---- Performance
     performance = parser.add_argument_group(title="configuration")
     # Clean
@@ -38,6 +38,7 @@ def parse():
     # File (Configuration)
     performance.add_argument(
         "-c", "--config",
+        dest="config",
         metavar="INI",
         action="store",
         help="Specifies the configuration file (Default: mrrobot.ini)")
@@ -48,15 +49,15 @@ def parse():
         help="Hides the banner")
     # Coding
     performance.add_argument(
-        "--coding",
-        metavar="CODING",
+        "--encoding",
         type=str,
+        metavar="CODING",
         help="Set the encoding method (Default: utf-8)")
     # Timeout
     performance.add_argument(
         "--timeout",
-        metavar="SECONDS",
         type=float,
+        metavar="SECONDS",
         help="Set the timeout to the specified number of seconds (Default: 10. Disabled: 0)")
     # ---- Units Group
     units = parser.add_argument_group(title="available categories")

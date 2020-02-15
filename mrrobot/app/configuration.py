@@ -5,15 +5,20 @@ from configparser import ConfigParser,ParsingError
 
 class Configuration:
     def __init__(self):
-        # Public attributes
-        self.CODING     :str    = "utf-8"
-        self.FLAG       :str    = "MrRobotCTF{.*}"
-        self.TIMEOUT    :float  = 10.0
         # Private attributes
         self.__FILE:str = "mrrobot.ini"
         self.__CONFIG:ConfigParser = ConfigParser()
         self.__AVAILABLE_UNITS:list = [
             "crypto","esoteric"]
+        self.__VALID_ENCODINGS:list = [
+            "utf-8","utf8","utf_8","UTF","U8"]
+        # Public attributes
+        self.ENCODING   :str    = self.__VALID_ENCODINGS[0]
+        self.FLAG       :str    = "MrRobotCTF{.*}"
+        self.TIMEOUT    :float  = 10.0
+        self.ENABLED_UNITS:list = [ False for _ in self.__AVAILABLE_UNITS ]
+        
+    # ---x--- Public methods ---x---
 
     def load(self,configfile:str=None,clean:bool=False) -> None:
         # Check argument
@@ -22,11 +27,38 @@ class Configuration:
         if not isfile(self.__FILE) or clean: self.__create_default()
         # Read the configuration file
         self.__read(configfile)
+        # Load the performance parameters
+        if self.__CONFIG["PERFORMANCE"]:
+            performance = self.__CONFIG["PERFORMANCE"]
+            if performance["encoding"]: self.ENCODING = performance["encoding"]
+            if performance["timeout"]: self.TIMEOUT = float(performance["timeout"])
+        # Load the challenge parameters
+        if self.__CONFIG["CHALLENGE"]:
+            challenge = self.__CONFIG["CHALLENGE"]
+            if challenge["flag"]: self.FLAG = challenge["flag"]
+            if challenge["units"] and type(challenge["units"]) is list:
+                for unit in challenge["units"]:
+                    idx = self.__AVAILABLE_UNITS.index(unit)
+                    if idx != -1: self.__AVAILABLE_UNITS[idx] = True
+                
+    # --- Setters
+
+    def set_encoding(self,encoding:str=None) -> None:
+        if encoding: encoding = encoding.lower()
+        if encoding in self.__VALID_ENCODINGS: self.ENCODING = encoding
+
+    def set_flag(self,flag:str=None) -> None:
+        if flag: self.FLAG = flag
+
+    def set_timeout(self,timeout:float=None) -> None:
+        if timeout: self.TIMEOUT = timeout
+
+    # ---x--- Private methods ---x---
 
     def __create_default(self) -> None:
         # Set the default values
         self.__CONFIG["PERFORMANCE"] = {
-            "coding":   self.CODING,
+            "encoding": self.ENCODING,
             "timeout":  self.TIMEOUT
         }
         self.__CONFIG["CHALLENGE"] = {

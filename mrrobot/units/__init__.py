@@ -1,13 +1,13 @@
+from app.configuration import Configuration
+
 import re
 from typing import Any
 from abc import ABC, abstractmethod
 from itertools import chain
 from multiprocessing import Lock, Pipe, Process
 
-from app.globals import ENCODING,ENCODING_OPTIONS,FLAG
-
 class UnitBase(ABC):
-    def __init__(self, pipe:Pipe=None, lock:Lock=None):
+    def __init__(self,config:Configuration,pipe:Pipe=None,lock:Lock=None):
         # Public attributes
         self.ID         = ("Not defined","Not defined")
         self.CODE       = bytes()
@@ -15,6 +15,7 @@ class UnitBase(ABC):
         self._RAW       = bytes()
         self._REGEX     = rb"(.*)"
         self._RESULT    = bytes()
+        self._CONFIG    = config
         # Multiprocessing
         self._LOCK      = lock
         self._PIPE      = pipe
@@ -48,11 +49,8 @@ class UnitBase(ABC):
         return self
 
     def input(self, inpt) -> object:
-        # Check if the encoding is valid
-        global ENCODING
-        if not ENCODING in ENCODING_OPTIONS: ENCODING = ENCODING_OPTIONS[0]
-        # Set the input as a bytestring
-        self._RAW = inpt if type(inpt) is bytes else bytes(inpt,encoding=ENCODING)
+        # Save the input     
+        self._RAW = inpt  
         # Returns itself to concatenate methods
         return self
 
@@ -67,18 +65,18 @@ class UnitBase(ABC):
 
     # --- Protected methods ---
 
-    def _check(self, result:bytes, additional_data:list=None) -> bool:
+    def _check(self,result:bytes,additional_data:list=None) -> bool:
         found:bool = False
         # Check if a result exists
         if result:
             # Compile the pattern
-            pattern:re.Pattern = re.compile(FLAG)
+            pattern:re.Pattern = re.compile(bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING))
             # Search any flag
             filtered:list = pattern.findall(result)
             # Check if a flag was in
             if len(filtered) > 0:
                 found = True
-                flag:str = "".join([ str(flag, encoding=ENCODING) for flag in filtered ])
+                flag:str = "".join([ str(flag, encoding=self._CONFIG.ENCODING) for flag in filtered ])
                 self.__send(flag, additional_data)
         # Return the result
         return found

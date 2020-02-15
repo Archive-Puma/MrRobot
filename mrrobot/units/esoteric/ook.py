@@ -4,8 +4,8 @@ from units.esoteric.brainfuck import Unit as Brainfuck
 import sys
 
 class Unit(UnitBase):
-    def __init__(self,pipe=None,lock=None):
-        super().__init__(pipe=pipe,lock=lock)
+    def __init__(self,config,pipe=None,lock=None):
+        super().__init__(config=config,pipe=pipe,lock=lock)
         self.ID     = ("esoteric","ook")
         self._REGEX = rb"Ook([!?.])"
 
@@ -16,7 +16,7 @@ class Unit(UnitBase):
 
     def evaluate(self) -> bool:
         bf_code:bytes = self.__ook2bf()
-        brainfuck:Brainfuck = Brainfuck(self._PIPE,self._LOCK)
+        brainfuck:Brainfuck = Brainfuck(config=self._CONFIG,pipe=self._PIPE,lock=self._LOCK)
         brainfuck.ID = self.ID
         brainfuck.CODE = bf_code
         return brainfuck.evaluate()
