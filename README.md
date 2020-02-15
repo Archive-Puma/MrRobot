@@ -1,8 +1,8 @@
-<div style="text-align:center">
+<h1 style="text-align:center">
   <img src=".github/readme/elliot.gif" alt="Elliot" width="500">
   <br><br>
   <img src=".github/readme/logo.png" alt="Logo" width="600">
-</div>
+</h1>
 
 ## :wrench: Implementations
 

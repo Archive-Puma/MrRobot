@@ -41,7 +41,7 @@ class Unit(UnitBase):
             elif token == b'[': loops.append(ip)
             elif token == b']':
                 if stack[sp] == 0 and len(loops) > 0: loops.pop()
-                else: ip = loops[-1]
+                elif len(loops) > 0: ip = loops[-1]
             # Increment the instruction pointer
             ip += 1
 

@@ -9,7 +9,7 @@ class Configuration:
         self.__FILE:str = "mrrobot.ini"
         self.__CONFIG:ConfigParser = ConfigParser()
         self.__AVAILABLE_UNITS:list = [
-            "crypto","esoteric"]
+            "crypto","esoteric","forensics"]
         self.__VALID_ENCODINGS:list = [
             "utf-8","utf8","utf_8","UTF","U8"]
         # Public attributes
