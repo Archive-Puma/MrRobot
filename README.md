@@ -1,4 +1,9 @@
-# MrRobot
+<h2 align="center">
+  <img src=".github/readme/logo.gif" alt="Elliot" width="500">
+  <br>
+  <br>
+  <img src=".github/readme/logo.png" alt="Logo" width="600">
+</h2>
 
 ## :wrench: Implementations
 
