@@ -1,4 +1,5 @@
 import app
+from app.exception import Elliot
 from app.configuration import Configuration
 
 from multiprocessing import Pipe
@@ -20,6 +21,8 @@ def main() -> None:
 def entrypoint() -> None:
     try:
         main()
+    except Elliot as problem:
+        print(f"[!] {problem}")
     except KeyboardInterrupt:
         print("[!] The world is a dangerous place, Elliot...")
 

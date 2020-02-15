@@ -44,8 +44,9 @@ class Configuration:
     # --- Setters
 
     def set_encoding(self,encoding:str=None) -> None:
-        if encoding: encoding = encoding.lower()
-        if encoding in self.__VALID_ENCODINGS: self.ENCODING = encoding
+        if encoding:
+            if encoding in self.__VALID_ENCODINGS: self.ENCODING = encoding
+            else: raise Elliot(f"Encoding '{encoding}' is not supported")
 
     def set_flag(self,flag:str=None) -> None:
         if flag: self.FLAG = flag
@@ -77,4 +78,5 @@ class Configuration:
         try: self.__CONFIG.read(configfile)
         except ParsingError:
             raise Elliot(f"{configfile} is not a valid configuration file")
-
+        # Check some parameters
+        self.set_encoding(self.__CONFIG["PERFORMANCE"]["encoding"])
