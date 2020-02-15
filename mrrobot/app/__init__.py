@@ -2,6 +2,7 @@ from os.path import isfile
 from time import perf_counter as counter
 from multiprocessing import active_children, Lock, Pipe, Process
 
+from app.units import UnitLoader
 from app.configuration import Configuration
 from app.arguments import parse as argparser
 
@@ -52,8 +53,9 @@ def terminate(processes:list) -> None:
     for process in processes: process.terminate()
 
 def units(inpt,config:Configuration,pipe:Pipe=None, lock:Lock=None) -> list:
-    units = list()
-    units.append(Ook(config=config,pipe=pipe,lock=lock))
-    units.append(Brainfuck(config=config,pipe=pipe,lock=lock))
+    unitloader = UnitLoader()
+    available_units = unitloader.load()
+    units = [ available_units[category][unitname].Unit(config=config,pipe=pipe,lock=lock) \
+        for category in available_units for unitname in available_units[category] ]
     inpt = inpt if type(inpt) is bytes else bytes(inpt,encoding=config.ENCODING)
     return [ unit.input(inpt).clean() for unit in units ]

@@ -7,7 +7,6 @@ from time import perf_counter as performance
 def main() -> None:
     start_time: float = performance()
     conn_parent,conn_unit = Pipe(duplex=False)
-    
     args = app.arguments()
     config:Configuration = app.configuration(args)
     units:list = app.units(args.input,config=config,pipe=conn_unit)
