@@ -1,4 +1,5 @@
-MrRobotCTF: Base64 || Crypto (10 points)
+MrRobotCTF: Base64 || Crypto
+
     I was in a public toilet and I found this message. It doesn't seem
     to be crypted... Maybe it is encoded in some famous base:
 

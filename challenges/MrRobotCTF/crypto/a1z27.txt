@@ -1,0 +1,12 @@
+MrRobotCTF: A1Z27 || Crypto
+
+    The last time I bought from Annazon, we found some rare
+    numbers on the ticket that turned out to make sense.
+    Yesterday I ordered a package on Amazon.es and
+    the ticket has similar numbers but I can't find the meaning.
+
+        13 19 19 16 2 16 21 3 21 6 { 3 16 14 15 4 5 5 20 17 1 15 1 }
+
+    ~ Maybe you can help me ~
+
+Flag format: MRROBOTCTF{FLAG}

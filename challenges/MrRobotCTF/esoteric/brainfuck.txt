@@ -1,4 +1,4 @@
-MrRobotCTF: Brainfucked || Esoretic (10 points)
+MrRobotCTF: Brainfucked || Esoretic
 
     I found this weird text in a file and I don't know what it means:
 

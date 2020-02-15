@@ -35,9 +35,9 @@ class Unit(UnitBase):
                 stack[sp] = 255 if stack[sp] == 0 else stack[sp] - 1
             elif token == b'.':
                 result.append(stack[sp])
-            elif token == b',':
-                key = ord(sys.stdin.read(1))
-                stack[sp] = key if key >= 0 and key <= 255 else 0
+            elif token == b',': pass
+                #key = ord(sys.stdin.read(1))
+                #stack[sp] = key if key >= 0 and key <= 255 else 0
             elif token == b'[': loops.append(ip)
             elif token == b']':
                 if stack[sp] == 0 and len(loops) > 0: loops.pop()

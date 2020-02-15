@@ -1,0 +1,10 @@
+MrRobotCTF: A1Z26 || Crypto
+
+    I just received a package from Annazon.com and
+    the ticket had some weird numbers:
+
+        13 18 18 15 2 15 20 3 20 6{6 18 15 13_1_20 15_26_12 9 11 5_1 13 26 14}
+
+    ~ Maybe you can help me ~
+
+Flag format: MRROBOTCTF{FLAG}

@@ -1,4 +1,4 @@
-MrRobotCTF: Ok || Esoretic (10 points)
+MrRobotCTF: Ok || Esoretic
 
     GorillaZ has released a new song and I spent all night
     writting the lyrics in this file:

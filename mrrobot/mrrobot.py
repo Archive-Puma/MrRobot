@@ -1,4 +1,5 @@
 import app
+from app import display
 from app.exception import Elliot
 from app.configuration import Configuration
 
@@ -13,8 +14,9 @@ def main() -> None:
     units:list = app.units(args.input,config=config,pipe=conn_unit)
     processes:list = app.processes(units)
     app.execution(processes)
-    app.search(processes,pipe=conn_parent,start=start_time,timeout=5)
+    result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
     app.terminate(processes)
+    display.flag(result)
 
     print(f"[?] Execution time: {round(performance() - start_time, 2)} seconds")
 

@@ -35,19 +35,9 @@ def execution(processes:list) -> None:
 def processes(units:list) -> list:
     return [ Process(target=unit.run,name=f"{unit.ID[0]}::{unit.ID[1]}") for unit in units ]
 
-def search(processes:list,pipe:Pipe,start:float=None,timeout:float=None) -> None:
-    flag:bool   = False
-    while not flag and len(active_children()) > 0 and not istimeout(start,timeout):
-        if pipe.poll():
-            flag = True
-            ((category,name),result,additional_data) = pipe.recv()
-            print(f"[+] Flag found!")
-            print(f" | Flag:\t{result[0]}")
-            print(f" | Category:\t{category}")
-            print(f" | Unit:\t{name}")
-            if additional_data:
-                for key,data in additional_data: print(f" |-- {key}: {data}")
-    if not flag: print("[-] Flag not found")
+def search(processes:list,pipe:Pipe,start:float=None,timeout:float=None) -> tuple:
+    while len(active_children()) > 0 and not istimeout(start,timeout):
+        if pipe.poll(): return pipe.recv()
 
 def terminate(processes:list) -> None:
     for process in processes: process.terminate()
