@@ -1,20 +1,21 @@
-<h2 align="center">
-  <img src=".github/readme/logo.gif" alt="Elliot" width="500">
-  <br>
-  <br>
+<div style="text-align:center">
+  <img src=".github/readme/elliot.gif" alt="Elliot" width="500">
+  <br><br>
   <img src=".github/readme/logo.png" alt="Logo" width="600">
-</h2>
+</div>
 
 ## :wrench: Implementations
 
 ### Design
 
-- [ ] Show banner
+- [x] Show banner
+- [ ] Colors can be disabled
 - [x] Implement colors
 - [ ] Implement spinners?
 
 ### Architecture
 
+- [x] Units should be autoimported
 - [x] All units must inherit from a template
 
 ### Performance

@@ -21,7 +21,7 @@ def configuration(arguments) -> Configuration:
     # Create the configurator
     configuration:Configuration = Configuration()
     # Create/Load the config file
-    configuration.load(arguments.config)
+    configuration.load(arguments.config,clean=arguments.clean)
     # Override configuration with arguments
     configuration.set_encoding(arguments.encoding)
     configuration.set_flag(arguments.flag)

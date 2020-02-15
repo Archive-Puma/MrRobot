@@ -10,6 +10,7 @@ def main() -> None:
     conn_parent,conn_unit = Pipe(duplex=False)
     args = app.arguments()
     config:Configuration = app.configuration(args)
+    if not args.no_banner: app.display.banner()
     units:list = app.units(args.input,config=config,pipe=conn_unit)
     processes:list = app.processes(units)
     app.execution(processes)
