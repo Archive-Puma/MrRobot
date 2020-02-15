@@ -1,13 +1,12 @@
 import app
-from app import display
 from app.exception import Elliot
 from app.configuration import Configuration
 
+from time import perf_counter
 from multiprocessing import Pipe
-from time import perf_counter as performance
 
 def main() -> None:
-    start_time: float = performance()
+    start_time:float = perf_counter()
     conn_parent,conn_unit = Pipe(duplex=False)
     args = app.arguments()
     config:Configuration = app.configuration(args)
@@ -16,9 +15,8 @@ def main() -> None:
     app.execution(processes)
     result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
     app.terminate(processes)
-    display.flag(result)
-
-    print(f"[?] Execution time: {round(performance() - start_time, 2)} seconds")
+    app.display.flag(result)
+    app.display.performance(start_time)
 
 def entrypoint() -> None:
     try:

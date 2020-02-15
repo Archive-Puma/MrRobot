@@ -1,9 +1,8 @@
+from app.display import colored,info
 from app.configuration import Configuration
 
 import re
-from typing import Any
 from abc import ABC, abstractmethod
-from itertools import chain
 from multiprocessing import Lock, Pipe, Process
 
 class UnitBase(ABC):
@@ -23,7 +22,7 @@ class UnitBase(ABC):
     
     # --- Multiprocessing-based methods ---
 
-    def __send(self, response:Any, additional_data:list=None) -> None:
+    def __send(self, response, additional_data:list=None) -> None:
         # Convert the response to a list
         if not response is list: response = [response]
         # Send the response to the parent
@@ -90,7 +89,7 @@ class UnitBase(ABC):
     def __verbose(self) -> None:
         # Print some information
         category,unit = self.ID
-        print(f"[*] Running {category}: {unit}")
+        info(f"Running {colored('good')}{category}{colored()} {unit}")
 
     # --- Abstract methods ---
 

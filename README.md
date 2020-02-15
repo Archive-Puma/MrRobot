@@ -1,7 +1,20 @@
-MrRobot
+# MrRobot
 
-- [x] Todas las unidades deben heredar de una plantilla
-- [x] Es necesario implementar multiprocessing
-    - [ ] Los multiprocessing se ejecutan mediante prioridades
-    - [x] Cuando un thread termina satisfactoriamente, todos acaban
-    - [ ] Se ha de poder implementar un "inline" método de búsqueda: FLAG{prueba}
+## :wrench: Implementations
+
+### Design
+
+- [ ] Show banner
+- [x] Implement colors
+- [ ] Implement spinners?
+
+### Architecture
+
+- [x] All units must inherit from a template
+
+### Performance
+
+- [x] It is necessary to implement multiprocessing
+- [ ] Multiprocessing is executed through priorities
+- [x] When a process ends successfully, everyone ends
+- [ ] It must be possible to run using an *inline* search method: `FLAG{challenge}`
