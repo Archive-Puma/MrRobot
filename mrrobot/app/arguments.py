@@ -79,5 +79,11 @@ def parse():
         action="store_true",
         help="Loads the esoteric units"
     )
+    # Forensics
+    units.add_argument(
+        "-uf", "--forensics",
+        action="store_true",
+        help="Loads the forensics units"
+    )
     # Parse the arguments
     return parser.parse_args()

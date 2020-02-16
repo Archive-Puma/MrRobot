@@ -1,4 +1,5 @@
 import app
+import app.display
 from app.exception import Elliot
 from app.configuration import Configuration
 
@@ -6,12 +7,16 @@ from time import perf_counter
 from multiprocessing import Pipe
 
 def main() -> None:
+    # Start the performance counter
     start_time:float = perf_counter()
+    # Create the connection between processes
     conn_parent,conn_unit = Pipe(duplex=False)
-    args = app.arguments()
+    # Parse the arguments and configuration
+    args,contents = app.arguments()
     config:Configuration = app.configuration(args)
+    challenge:tuple = (args.input,contents) if contents else (args.input,args.input)
     if not args.no_banner: app.display.banner()
-    units:list = app.units(args.input,config=config,pipe=conn_unit)
+    units:list = app.units(challenge,config=config,pipe=conn_unit)
     processes:list = app.processes(units)
     app.execution(processes)
     result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
@@ -23,9 +28,9 @@ def entrypoint() -> None:
     try:
         main()
     except Elliot as problem:
-        print(f"[!] {problem}")
+        app.display(problem)
     except KeyboardInterrupt:
-        print("[!] The world is a dangerous place, Elliot...")
+        app.display.error("The world is a dangerous place, Elliot...")
 
 if __name__ == "__main__":
     entrypoint()

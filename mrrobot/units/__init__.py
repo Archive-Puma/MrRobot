@@ -15,6 +15,9 @@ class UnitBase(ABC):
         self._REGEX     = rb"(.*)"
         self._RESULT    = bytes()
         self._CONFIG    = config
+        self._RAWMODE   = False
+        self._FILENAME  = None
+        self._NOPROCESS = False
         # Multiprocessing
         self._LOCK      = lock
         self._PIPE      = pipe
@@ -35,21 +38,24 @@ class UnitBase(ABC):
     # --- Public methods ---
     
     def clean(self, returntype:type=list) -> object:
-        # Filter using regular expressions
-        regex = re.compile(self._REGEX)
-        finds = regex.findall(self._RAW)
-        # Convert result to a single list
-        result = [*finds]
-        # Convert the result in a single bytestring
-        if returntype is bytes: result = b"".join(result)
-        # Set the result
-        self.CODE = result
+        if not self._NOPROCESS:
+            if self._RAWMODE: self.CODE = self._RAW
+            else:
+                # Filter using regular expressions
+                regex = re.compile(self._REGEX)
+                finds = regex.findall(self._RAW)
+                # Convert result to a single list
+                result = [*finds]
+                # Convert the result in a single bytestring
+                if returntype is bytes: result = b"".join(result)
+                # Set the result
+                self.CODE = result
         # Returns itself to concatenate methods
         return self
 
-    def input(self, inpt) -> object:
-        # Save the input     
-        self._RAW = inpt  
+    def input(self, challenge:tuple) -> object:
+        # Save the input
+        self._FILENAME, self._RAW = challenge
         # Returns itself to concatenate methods
         return self
 
@@ -68,6 +74,8 @@ class UnitBase(ABC):
         found:bool = False
         # Check if a result exists
         if result:
+            #category,unit = self.ID
+            #info(f"Checking {colored('good')}{category}{colored()} {unit}: {str(result[:10])}...")
             # Compile the pattern
             pattern:re.Pattern = re.compile(bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING))
             # Search any flag
@@ -82,7 +90,7 @@ class UnitBase(ABC):
 
     def _is_valid(self) -> bool:
         # Check the length of the code
-        return len(self.CODE) > 0
+        return len(self.CODE) > 0 or (self._NOPROCESS and self._FILENAME)
 
     # --- Private methods ---
 

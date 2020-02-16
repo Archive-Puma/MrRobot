@@ -6,26 +6,32 @@ from app.units import UnitLoader
 from app.configuration import Configuration
 from app.arguments import parse as argparser
 
-from units.esoteric.ook import Unit as Ook
-from units.esoteric.brainfuck import Unit as Brainfuck
-
 istimeout = lambda start,timeout: bool(timeout > 0 and not start or not timeout or counter() - start >= timeout)
 
-def arguments():
+def arguments() -> tuple:
+    contents = None
     arguments = argparser()
     if isfile(arguments.input):
-        with open(arguments.input,"rb") as f: arguments.input = f.read()
-    return arguments
+        with open(arguments.input,"rb") as f: contents = f.read()
+    return arguments,contents
 
-def configuration(arguments) -> Configuration:
+def configuration(args) -> Configuration:
     # Create the configurator
     configuration:Configuration = Configuration()
     # Create/Load the config file
-    configuration.load(arguments.config,clean=arguments.clean)
+    configuration.load(args.config,clean=args.clean)
     # Override configuration with arguments
-    configuration.set_encoding(arguments.encoding)
-    configuration.set_flag(arguments.flag)
-    configuration.set_timeout(arguments.timeout)
+    configuration.set_encoding(args.encoding)
+    configuration.set_flag(args.flag)
+    configuration.set_timeout(args.timeout)
+    # Disable all if one category at least is enabled
+    if args.crypto or args.esoteric or args.forensics:
+        configuration.set_all_categories(enabled=False)
+        if args.crypto: configuration.enable_category("crypto")
+        if args.esoteric: configuration.enable_category("esoteric")
+        if args.forensics: configuration.enable_category("forensics")
+    # All enabled
+    if args.all: configuration.set_all_categories(enabled=True)
     # Return the configuration
     return configuration
 
@@ -42,10 +48,11 @@ def search(processes:list,pipe:Pipe,start:float=None,timeout:float=None) -> tupl
 def terminate(processes:list) -> None:
     for process in processes: process.terminate()
 
-def units(inpt,config:Configuration,pipe:Pipe=None, lock:Lock=None) -> list:
+def units(challenge,config:Configuration,pipe:Pipe=None, lock:Lock=None) -> list:
     unitloader = UnitLoader()
-    available_units = unitloader.load()
+    available_units = unitloader.load(config)
     units = [ available_units[category][unitname].Unit(config=config,pipe=pipe,lock=lock) \
         for category in available_units for unitname in available_units[category] ]
+    inpt,contents = challenge
     inpt = inpt if type(inpt) is bytes else bytes(inpt,encoding=config.ENCODING)
-    return [ unit.input(inpt).clean() for unit in units ]
+    return [ unit.input((inpt,contents)).clean() for unit in units ]

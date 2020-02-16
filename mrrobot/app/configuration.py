@@ -37,9 +37,7 @@ class Configuration:
             challenge = self.__CONFIG["CHALLENGE"]
             if challenge["flag"]: self.FLAG = challenge["flag"]
             if challenge["units"] and type(challenge["units"]) is list:
-                for unit in challenge["units"]:
-                    idx = self.__AVAILABLE_UNITS.index(unit)
-                    if idx != -1: self.__AVAILABLE_UNITS[idx] = True
+                for unit in challenge["units"]: self.enable_category(unit)
                 
     # --- Setters
 
@@ -53,6 +51,17 @@ class Configuration:
 
     def set_timeout(self,timeout:float=None) -> None:
         if timeout: self.TIMEOUT = timeout
+
+    def set_all_categories(self,enabled:bool=False) -> None:
+        self.ENABLED_UNITS:list = [ enabled for _ in self.__AVAILABLE_UNITS ]
+
+    def enable_category(self,name:str) -> None:
+        idx = self.__AVAILABLE_UNITS.index(name)
+        if idx != -1: self.ENABLED_UNITS[idx] = True
+
+    def check_category(self,name:str) -> None:
+        idx = self.__AVAILABLE_UNITS.index(name)
+        return idx != -1 and self.ENABLED_UNITS[idx]
 
     # ---x--- Private methods ---x---
 
