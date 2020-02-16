@@ -2,14 +2,14 @@ from textwrap import dedent
 from time import perf_counter
 
 def banner():
-    logo = dedent(f"""{colored('error')}
+    logo = dedent(f"""
          \\   |         _ \\         |           |
          |\\/ |   __|  |   |   _ \\  __ \\   _ \\  __|
          |   |  |     __ <   (   | |   | (   | |
         _|  _| _| _) _| \\_\\ \\___/ _.__/ \\___/ \\__|
                                     {colored()}@CosasDePuma
         """)
-    print(logo)
+    print(f"{colored('error')}{logo}")
 
 # --- Colorama sucks ---
 

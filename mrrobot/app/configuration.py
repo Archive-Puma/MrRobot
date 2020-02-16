@@ -16,7 +16,7 @@ class Configuration:
         self.ENCODING   :str    = self.__VALID_ENCODINGS[0]
         self.FLAG       :str    = "MrRobotCTF{.*}"
         self.TIMEOUT    :float  = 10.0
-        self.ENABLED_UNITS:list = [ False for _ in self.__AVAILABLE_UNITS ]
+        self.ENABLED_UNITS:list = [ True for _ in self.__AVAILABLE_UNITS ]
         
     # ---x--- Public methods ---x---
 
