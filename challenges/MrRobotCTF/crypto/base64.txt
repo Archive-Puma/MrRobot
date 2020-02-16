@@ -7,4 +7,4 @@ MrRobotCTF: Base64 || Crypto
 
     ~ Maybe you can help me ~
 
-Flag format: MrRobotCTF{FLAG}
+Flag prefix: MrRobotCTF

@@ -7,10 +7,15 @@ class Unit(UnitBase):
         super().__init__(config=config,pipe=pipe,lock=lock)
         self.ID         = ("forensics","lsb")
         self._NOPROCESS = True
-    
-    def evaluate(self) -> bool:
-        image = Image.open(self._FILENAME, "r")
-        self.CODE = list(image.getdata())
+
+    def _is_valid(self):
+        try:
+            image = Image.open(self._FILENAME, "r")
+            self.CODE = list(image.getdata())
+        except: pass
+        return super()._is_valid()
+        
+    def evaluate(self) -> bool:   
         result = self.__steganography()
         return self._check(result)
 

@@ -12,8 +12,8 @@ class Unit(UnitBase):
     
     def evaluate(self) -> bool:
         key,found = 1,False
-        while key < len(self.__LOWER):
-            result = self.__caesar(key)
+        while not found and key < len(self.__LOWER):
+            result = self.__caesar(key=key)
             found = self._check(result, [("Key",key)])
             key += 1
         return found

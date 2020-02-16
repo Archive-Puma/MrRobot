@@ -12,4 +12,4 @@ MrRobotCTF: Brainfucked || Esoretic
 
     ~ Maybe you can help me ~
 
-Flag format: MrRobotCTF{FLAG}
+Flag prefix: MrRobotCTF

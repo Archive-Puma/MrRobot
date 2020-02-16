@@ -77,4 +77,4 @@ MrRobotCTF: Ok || Esoretic
 
     ~ It was a bit brainf*cked ~
 
-Flag format: MrRobotCTF{FLAG}
+Flag prefix: MrRobotCTF

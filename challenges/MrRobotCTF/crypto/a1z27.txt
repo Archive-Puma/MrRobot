@@ -9,4 +9,4 @@ MrRobotCTF: A1Z27 || Crypto
 
     ~ Maybe you can help me ~
 
-Flag format: MRROBOTCTF{FLAG}
+Flag prefix: MRROBOTCTF
