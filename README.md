@@ -4,6 +4,8 @@
   <img src=".github/readme/logo.png" alt="Logo" width="600">
 </h1>
 
+**MrRobot** is that friend you needed so much by your side during the `CTFs`. Not only does it help you to perform the tests, but it will also look for ways to solve them for you.
+
 🖥️ Installation
 ---
 To install the tool, the easiest way is to use the `pip` command:
@@ -17,7 +19,8 @@ In case you need to perform a manual installation, you can use any of the `.egg`
 ```sh
 # Old method
 pip -m easy_install dist/mrrobot-x.x.x-py3.x.egg
-
+```
+```sh
 # New method
 pip install mrrobot-x.x.x-py3-none-any.whl
 ```
@@ -53,7 +56,8 @@ In my case, since I am a fanatic of cleanliness and order, you can use `Poetry` 
 # Using poetry
 poetry update
 poetry run python -m mrrobot
-
+```
+```sh
 # Using pipenv
 pipenv update
 pipenv run python -m mrrobot
