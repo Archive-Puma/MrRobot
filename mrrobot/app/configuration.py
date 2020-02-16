@@ -32,13 +32,12 @@ class Configuration:
         # Load the performance parameters
         if self.__CONFIG["PERFORMANCE"]:
             performance = self.__CONFIG["PERFORMANCE"]
-            if performance["encoding"]: self.ENCODING = performance["encoding"]
-            if performance["timeout"]: self.TIMEOUT = float(performance["timeout"])
+            if performance["encoding"]: self.set_encoding(performance["encoding"])
+            if performance["timeout"]: self.set_timeout(float(performance["timeout"]))
         # Load the challenge parameters
         if self.__CONFIG["CHALLENGE"]:
             challenge = self.__CONFIG["CHALLENGE"]
-            if challenge["flag"]: self.FLAG = challenge["flag"]
-            if challenge["inside"]: self.INSIDE = challenge["inside"]
+            if challenge["flag"]: self.set_flag(challenge["flag"])
             if challenge["units"] and type(challenge["units"]) is list:
                 for unit in challenge["units"]: self.enable_category(unit)
                 
@@ -82,7 +81,6 @@ class Configuration:
         }
         self.__CONFIG["CHALLENGE"] = {
             "flag":     self.FLAG,
-            "inside":   self.INSIDE,
             "units":    self.__AVAILABLE_UNITS
         }
         # Create the config file

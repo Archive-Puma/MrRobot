@@ -26,7 +26,7 @@ def parse():
     challenge.add_argument(
         "--inside",
         action="store_true",
-        help="Solve in-flag challenges (Example: MrRobotCTF{challenge})"
+        help="Solve in-flag challenges. Option -u/--unit must be used"
     )
     # Flag format
     challenge.add_argument(

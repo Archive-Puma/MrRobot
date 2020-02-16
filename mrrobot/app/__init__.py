@@ -24,8 +24,10 @@ def configuration(args) -> Configuration:
     # Override configuration with arguments
     configuration.set_encoding(args.encoding)
     configuration.set_flag(args.flag)
-    configuration.set_inside(args.inside)
     configuration.set_timeout(args.timeout)
+    if args.inside:
+        if args.unit: configuration.set_inside(args.inside)
+        else: raise Elliot("--inside requieres --unit to be used")
     # Disable all if only one unit is enabled
     if args.unit:
         category,name = None,None
