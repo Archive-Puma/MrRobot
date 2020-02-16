@@ -1,4 +1,4 @@
-<h1 style="text-align:center">
+<h1 align="center">
   <img src=".github/readme/elliot.gif" alt="Elliot" width="500">
   <br><br>
   <img src=".github/readme/logo.png" alt="Logo" width="600">
@@ -9,14 +9,18 @@
 ### Design
 
 - [x] Show banner
-- [ ] Colors can be disabled
 - [x] Implement colors
+- [ ] Colors can be disabled
 - [ ] Implement spinners?
 
 ### Architecture
 
 - [x] Units should be autoimported
+- [ ] A single unit can be run
+- [x] Running selected categories
+- [ ] Units can implement custom arguments
 - [x] All units must inherit from a template
+- [x] Units can be disabled if their name start with an underscore
 
 ### Performance
 
