@@ -4,7 +4,6 @@
   <img src=".github/readme/logo.png" alt="Logo" width="600">
 </h1>
 
-
 🖥️ Installation
 ---
 To install the tool, the easiest way is to use the `pip` command:
@@ -28,7 +27,6 @@ But if this does not convince you because you are in **paranoid** mode (`MrRobot
 ```sh
 python setup.py install
 ```
-
 
 🔩 Develop
 ---
@@ -74,29 +72,3 @@ Anyway, if you want to help me in a more direct way, you can leave me a tip by c
     </br>
     <a href="https://www.paypal.me/cosasdepuma/"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=for-the-badge" alt="PayPal Donation"></a>
 </p>
-
-## :wrench: Implementations
-
-### Design
-
-- [x] Show banner
-- [x] Implement colors
-- [ ] Colors can be disabled
-- [ ] Implement spinners?
-
-### Architecture
-
-- [x] Units should be autoimported
-- [x] A single unit can be run
-- [x] Running selected categories
-- [ ] Units can implement custom arguments
-- [x] All units must inherit from a template
-- [x] Units can be disabled if their name start with an underscore
-
-### Performance
-
-- [x] It is necessary to implement multiprocessing
-- [ ] Multiprocessing is executed through priorities
-- [x] When a process ends successfully, everyone ends
-- [x] It must be possible to run using an *inside* search method: `FLAG{challenge}`
-- [x] Should be a *show all results* option
