@@ -24,6 +24,7 @@ def configuration(args) -> Configuration:
     # Override configuration with arguments
     configuration.set_encoding(args.encoding)
     configuration.set_flag(args.flag)
+    configuration.set_inside(args.inside)
     configuration.set_timeout(args.timeout)
     # Disable all if only one unit is enabled
     if args.unit:

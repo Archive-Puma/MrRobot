@@ -16,6 +16,7 @@ class Configuration:
         self.ENABLED_UNITS  :list   = [ True for _ in self.__AVAILABLE_UNITS ]
         self.ENCODING       :str    = self.__VALID_ENCODINGS[0]
         self.FLAG           :str    = "MrRobotCTF{.*?}"
+        self.INSIDE         :bool   = False
         self.ONLYENABLED    :str    = None
         self.TIMEOUT        :float  = 10.0
         
@@ -37,6 +38,7 @@ class Configuration:
         if self.__CONFIG["CHALLENGE"]:
             challenge = self.__CONFIG["CHALLENGE"]
             if challenge["flag"]: self.FLAG = challenge["flag"]
+            if challenge["inside"]: self.INSIDE = challenge["inside"]
             if challenge["units"] and type(challenge["units"]) is list:
                 for unit in challenge["units"]: self.enable_category(unit)
                 
@@ -49,6 +51,9 @@ class Configuration:
 
     def set_flag(self,flag:str=None) -> None:
         if flag: self.FLAG = flag
+
+    def set_inside(self,inside:bool=False) -> None:
+        if inside: self.INSIDE = inside
 
     def set_timeout(self,timeout:float=None) -> None:
         if timeout: self.TIMEOUT = timeout
@@ -77,6 +82,7 @@ class Configuration:
         }
         self.__CONFIG["CHALLENGE"] = {
             "flag":     self.FLAG,
+            "inside":   self.INSIDE,
             "units":    self.__AVAILABLE_UNITS
         }
         # Create the config file

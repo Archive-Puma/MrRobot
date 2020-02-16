@@ -41,9 +41,10 @@ class UnitBase(ABC):
         if not self._NOPROCESS:
             if self._RAWMODE: self.CODE = self._RAW
             else:
+                challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else self._RAW
                 # Filter using regular expressions
                 regex = re.compile(self._REGEX)
-                finds = regex.findall(self._RAW)
+                finds = regex.findall(challenge)
                 # Convert result to a single list
                 result = [*finds]
                 # Convert the result in a single bytestring
@@ -74,6 +75,9 @@ class UnitBase(ABC):
         found:bool = False
         # Check if a result exists
         if result:
+            if self._CONFIG.INSIDE:
+                prefix = bytes(self._CONFIG.FLAG.split('{',1)[0],encoding=self._CONFIG.ENCODING)
+                result = prefix + b'{' + result + b'}'                
             # Compile the pattern
             pattern:re.Pattern = re.compile(bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING))
             # Search any flag
@@ -92,6 +96,14 @@ class UnitBase(ABC):
         return len(self.CODE) > 0 or (self._NOPROCESS and self._FILENAME)
 
     # --- Private methods ---
+
+    def __inside_challenge(self,raw:bytes) -> bytes:
+        flagformat = bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING)
+        pattern = re.compile(flagformat)
+        flags = pattern.findall(raw)
+        inside = re.compile(rb"{.*?}")
+        challenges = inside.findall(b"\n".join(flags))
+        return b"\n".join([ challenge[1:-1] for challenge in challenges ])
 
     def __verbose(self, action:str, decorator:str="?") -> None:
         # Print some information

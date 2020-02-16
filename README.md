@@ -27,4 +27,5 @@
 - [x] It is necessary to implement multiprocessing
 - [ ] Multiprocessing is executed through priorities
 - [x] When a process ends successfully, everyone ends
-- [ ] It must be possible to run using an *inline* search method: `FLAG{challenge}`
+- [x] It must be possible to run using an *inside* search method: `FLAG{challenge}`
+- [ ] Should be a *show all results* option

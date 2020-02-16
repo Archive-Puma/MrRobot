@@ -15,15 +15,21 @@ def parse():
         version="MrRobot v1.0.0",
         help="Print the version")
     # ---- Challenge
-    chellenge = parser.add_argument_group(title="challenge")
+    challenge = parser.add_argument_group(title="challenge")
     # Input (Challenge)
-    chellenge.add_argument(
+    challenge.add_argument(
         "input",
         type=str,
         metavar="CHALLENGE",
         help="Challenge input (Can be a string or a file)")
+    # Inside flag
+    challenge.add_argument(
+        "--inside",
+        action="store_true",
+        help="Solve in-flag challenges (Example: MrRobotCTF{challenge})"
+    )
     # Flag format
-    chellenge.add_argument(
+    challenge.add_argument(
         "-f", "--flag",
         metavar="FLAG",
         action="store",
