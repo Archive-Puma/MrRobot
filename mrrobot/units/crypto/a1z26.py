@@ -1,4 +1,4 @@
-from units import UnitBase
+from mrrobot.units import UnitBase
 
 class Unit(UnitBase):
     def __init__(self,config,pipe=None,lock=None):

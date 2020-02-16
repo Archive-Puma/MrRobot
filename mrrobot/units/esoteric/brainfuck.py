@@ -1,4 +1,4 @@
-from units import UnitBase
+from mrrobot.units import UnitBase
 
 import re
 import sys

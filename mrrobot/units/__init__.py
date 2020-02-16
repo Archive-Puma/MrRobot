@@ -1,5 +1,5 @@
-from app.display import colored,info
-from app.configuration import Configuration
+from mrrobot.app.display import colored,info
+from mrrobot.app.configuration import Configuration
 
 import re
 from abc import ABC, abstractmethod

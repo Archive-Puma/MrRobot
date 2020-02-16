@@ -22,6 +22,6 @@ class UnitLoader:
         for (_,name,_) in pkgutil.iter_modules([folder]):
             # Disable units writing an underscore and check if only one units is enabled
             if name[0] != '_' and not only or only == name:
-                unit = import_module(f"units.{category}.{name}")
+                unit = import_module(f"mrrobot.units.{category}.{name}")
                 if hasattr(unit,"Unit"): units[name] = unit
         return units

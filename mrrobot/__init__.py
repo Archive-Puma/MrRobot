@@ -1,7 +1,9 @@
-import app
-import app.display
-from app.exception import Elliot
-from app.configuration import Configuration
+#!/usr/bin/env python3
+
+from mrrobot import app
+from mrrobot.app import display
+from mrrobot.app.exception import Elliot
+from mrrobot.app.configuration import Configuration
 
 from time import perf_counter
 from multiprocessing import Pipe

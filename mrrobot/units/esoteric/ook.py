@@ -1,5 +1,4 @@
-from units import UnitBase
-from units.esoteric.brainfuck import Unit as Brainfuck
+from mrrobot.units import esoteric,UnitBase
 
 import sys
 
@@ -15,7 +14,7 @@ class Unit(UnitBase):
 
     def evaluate(self) -> bool:
         bf_code:bytes = self.__ook2bf()
-        brainfuck:Brainfuck = Brainfuck(config=self._CONFIG,pipe=self._PIPE,lock=self._LOCK)
+        brainfuck = esoteric.brainfuck.Unit(config=self._CONFIG,pipe=self._PIPE,lock=self._LOCK)
         brainfuck.ID = self.ID
         brainfuck.CODE = bf_code
         return brainfuck.evaluate()

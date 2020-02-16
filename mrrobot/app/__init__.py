@@ -2,10 +2,10 @@ from os.path import isfile
 from time import perf_counter as counter
 from multiprocessing import active_children, Lock, Pipe, Process
 
-from app.units import UnitLoader
-from app.exception import Elliot
-from app.configuration import Configuration
-from app.arguments import parse as argparser
+from mrrobot.app.units import UnitLoader
+from mrrobot.app.exception import Elliot
+from mrrobot.app.configuration import Configuration
+from mrrobot.app.arguments import parse as argparser
 
 istimeout = lambda start,timeout: bool(timeout > 0 and not start or not timeout or counter() - start >= timeout)
 

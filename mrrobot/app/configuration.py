@@ -1,4 +1,4 @@
-from app.exception import Elliot
+from mrrobot.app.exception import Elliot
 
 from os.path import isfile
 from configparser import ConfigParser,ParsingError
