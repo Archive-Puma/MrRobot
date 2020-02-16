@@ -19,9 +19,13 @@ def main(processes:list) -> None:
     units:list = app.units(challenge,config=config,pipe=conn_unit)
     processes = app.processes(units)
     app.execution(processes)
-    result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
+    continous:bool = True
+    while continous:
+        result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
+        if args.find_all and result: app.display.flag(result)
+        else: continous = False
     app.terminate(processes)
-    app.display.flag(result)
+    if not args.find_all: app.display.flag(result)
     app.display.performance(start_time)
 
 def entrypoint() -> None:

@@ -9,11 +9,9 @@ class Unit(UnitBase):
         self._REGEX = rb"\b([a-zA-Z0-9\+/]+=*)\b"
     
     def evaluate(self) -> bool:
-        idx = 0
-        found = False
-        while not found and idx < len(self.CODE):
-            if len(self.CODE[idx]) % 4 == 0:
-                decoded = base64.decodebytes(self.CODE[idx])
+        found = True
+        for code in self.CODE:
+            if len(code) % 4 == 0:
+                decoded = base64.decodebytes(code)
                 found = self._check(decoded)
-            idx += 1
         return found

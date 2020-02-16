@@ -11,11 +11,10 @@ class Unit(UnitBase):
         self.__UPPER = ascii_lowercase.upper()
     
     def evaluate(self) -> bool:
-        key,found = 1,False
-        while not found and key < len(self.__LOWER):
+        found = False
+        for key in range(len(self.__LOWER)):
             result = self.__caesar(key=key)
-            found = self._check(result, [("Key",key)])
-            key += 1
+            found &= self._check(result, [("Key",key)])
         return found
 
     def __caesar(self,key:int=13) -> bytes:

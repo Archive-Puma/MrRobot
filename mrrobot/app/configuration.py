@@ -15,6 +15,7 @@ class Configuration:
         # Public attributes
         self.ENABLED_UNITS  :list   = [ True for _ in self.__AVAILABLE_UNITS ]
         self.ENCODING       :str    = self.__VALID_ENCODINGS[0]
+        self.FINDALL        :bool   = False
         self.FLAG           :str    = "MrRobotCTF{.*?}"
         self.INSIDE         :bool   = False
         self.ONLYENABLED    :str    = None
@@ -37,6 +38,7 @@ class Configuration:
         # Load the challenge parameters
         if self.__CONFIG["CHALLENGE"]:
             challenge = self.__CONFIG["CHALLENGE"]
+            if challenge["findall"]: self.set_findall(challenge["findall"])
             if challenge["flag"]: self.set_flag(challenge["flag"])
             if challenge["units"] and type(challenge["units"]) is list:
                 for unit in challenge["units"]: self.enable_category(unit)
@@ -47,6 +49,9 @@ class Configuration:
         if encoding:
             if encoding in self.__VALID_ENCODINGS: self.ENCODING = encoding
             else: raise Elliot(f"Encoding '{encoding}' is not supported")
+
+    def set_findall(self,findall:bool=False) -> None:
+        self.FINDALL = findall
 
     def set_flag(self,flag:str=None) -> None:
         if flag: self.FLAG = flag
@@ -80,6 +85,7 @@ class Configuration:
             "timeout":  self.TIMEOUT
         }
         self.__CONFIG["CHALLENGE"] = {
+            "findall":  self.FINDALL,
             "flag":     self.FLAG,
             "units":    self.__AVAILABLE_UNITS
         }

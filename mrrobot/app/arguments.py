@@ -28,6 +28,12 @@ def parse():
         action="store_true",
         help="Solve in-flag challenges. Option -u/--unit must be used"
     )
+    # Find all flag
+    challenge.add_argument(
+        "--find-all",
+        action="store_true",
+        help="Find all possible flags, no just the first"
+    )
     # Flag format
     challenge.add_argument(
         "-f", "--flag",
