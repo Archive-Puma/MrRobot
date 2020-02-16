@@ -13,10 +13,11 @@ class Configuration:
         self.__VALID_ENCODINGS:list = [
             "utf-8","utf8","utf_8","UTF","U8"]
         # Public attributes
-        self.ENCODING   :str    = self.__VALID_ENCODINGS[0]
-        self.FLAG       :str    = "MrRobotCTF{.*}"
-        self.TIMEOUT    :float  = 10.0
-        self.ENABLED_UNITS:list = [ True for _ in self.__AVAILABLE_UNITS ]
+        self.ENABLED_UNITS  :list   = [ True for _ in self.__AVAILABLE_UNITS ]
+        self.ENCODING       :str    = self.__VALID_ENCODINGS[0]
+        self.FLAG           :str    = "MrRobotCTF{.*}"
+        self.ONLYENABLED    :str    = None
+        self.TIMEOUT        :float  = 10.0
         
     # ---x--- Public methods ---x---
 
@@ -62,6 +63,9 @@ class Configuration:
     def check_category(self,name:str) -> None:
         idx = self.__AVAILABLE_UNITS.index(name)
         return idx != -1 and self.ENABLED_UNITS[idx]
+
+    def enable_only(self,name:str) -> None:
+        self.ONLYENABLED = name
 
     # ---x--- Private methods ---x---
 

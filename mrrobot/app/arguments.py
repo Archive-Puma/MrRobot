@@ -13,7 +13,7 @@ def parse():
         "--version",
         action="version",
         version="MrRobot v1.0.0",
-        help="Prints the version")
+        help="Print the version")
     # ---- Challenge
     chellenge = parser.add_argument_group(title="challenge")
     # Input (Challenge)
@@ -27,26 +27,26 @@ def parse():
         "-f", "--flag",
         metavar="FLAG",
         action="store",
-        help="Specifies the regex-based flag format (Default: MrRobotCTF{.*})")
+        help="Specify the regex-based flag format (Default: MrRobotCTF{.*})")
     # ---- Performance
     performance = parser.add_argument_group(title="configuration")
     # Clean
     performance.add_argument(
         "--clean",
         action="store_true",
-        help="Removes the default configuration if exists")
+        help="Remove the default configuration if exists")
     # File (Configuration)
     performance.add_argument(
         "-c", "--config",
         dest="config",
         metavar="INI",
         action="store",
-        help="Specifies the configuration file (Default: mrrobot.ini)")
+        help="Specify the configuration file (Default: mrrobot.ini)")
     # Banner
     performance.add_argument(
         "--no-banner",
         action="store_true",
-        help="Hides the banner")
+        help="Hide the banner")
     # Coding
     performance.add_argument(
         "--encoding",
@@ -65,25 +65,32 @@ def parse():
     units.add_argument(
         "-a", "--all",
         action="store_true",
-        help="Loads all the units (Default)"
+        help="Load all units (Default)"
+    )
+    # Only one unit
+    units.add_argument(
+        "-u", "--unit",
+        type=str,
+        action="store",
+        help="Load an specific unit (Format: category.unit)"
     )
     # Crypto
     units.add_argument(
         "-uc", "--crypto",
         action="store_true",
-        help="Loads the crypto units"
+        help="Load crypto units"
     )
     # Esoteric
     units.add_argument(
         "-ue", "--esoteric",
         action="store_true",
-        help="Loads the esoteric units"
+        help="Load esoteric units"
     )
     # Forensics
     units.add_argument(
         "-uf", "--forensics",
         action="store_true",
-        help="Loads the forensics units"
+        help="Load forensics units"
     )
     # Parse the arguments
     return parser.parse_args()

@@ -28,7 +28,7 @@ def entrypoint() -> None:
     try:
         main()
     except Elliot as problem:
-        app.display(problem)
+        app.display.error(problem)
     except KeyboardInterrupt:
         app.display.error("The world is a dangerous place, Elliot...")
 

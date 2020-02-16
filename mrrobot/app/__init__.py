@@ -3,6 +3,7 @@ from time import perf_counter as counter
 from multiprocessing import active_children, Lock, Pipe, Process
 
 from app.units import UnitLoader
+from app.exception import Elliot
 from app.configuration import Configuration
 from app.arguments import parse as argparser
 
@@ -24,6 +25,14 @@ def configuration(args) -> Configuration:
     configuration.set_encoding(args.encoding)
     configuration.set_flag(args.flag)
     configuration.set_timeout(args.timeout)
+    # Disable all if only one unit is enabled
+    if args.unit:
+        category,name = None,None
+        try: category,name = args.unit.split(".")
+        except ValueError: raise Elliot("Bad unit specification (Format: category.name)")
+        configuration.set_all_categories(enabled=False)
+        configuration.enable_category(category)
+        configuration.enable_only(name)
     # Disable all if one category at least is enabled
     if args.crypto or args.esoteric or args.forensics:
         configuration.set_all_categories(enabled=False)

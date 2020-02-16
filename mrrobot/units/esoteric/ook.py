@@ -11,8 +11,7 @@ class Unit(UnitBase):
 
     def _is_valid(self) -> bool:
         # Check Ook's parity length
-        length:int = len(self.CODE)
-        return length > 0 and length % 2 == 0
+        return super()._is_valid() and len(self.CODE) % 2 == 0
 
     def evaluate(self) -> bool:
         bf_code:bytes = self.__ook2bf()

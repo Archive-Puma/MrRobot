@@ -63,7 +63,7 @@ class UnitBase(ABC):
         try:
             # Evaluate the code if is a valid challenge
             if self._is_valid():
-                self.__verbose()
+                self.__verbose("Running",decorator='+')
                 self.evaluate()
         except KeyboardInterrupt:
             pass
@@ -74,8 +74,6 @@ class UnitBase(ABC):
         found:bool = False
         # Check if a result exists
         if result:
-            #category,unit = self.ID
-            #info(f"Checking {colored('good')}{category}{colored()} {unit}: {str(result[:10])}...")
             # Compile the pattern
             pattern:re.Pattern = re.compile(bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING))
             # Search any flag
@@ -89,15 +87,16 @@ class UnitBase(ABC):
         return found
 
     def _is_valid(self) -> bool:
+        self.__verbose("Checking")
         # Check the length of the code
         return len(self.CODE) > 0 or (self._NOPROCESS and self._FILENAME)
 
     # --- Private methods ---
 
-    def __verbose(self) -> None:
+    def __verbose(self, action:str, decorator:str="?") -> None:
         # Print some information
         category,unit = self.ID
-        info(f"Running {colored('good')}{category}{colored()} {unit}")
+        info(f"{action} {colored('good')}{category}{colored()} {unit}",decorator=decorator)
 
     # --- Abstract methods ---
 

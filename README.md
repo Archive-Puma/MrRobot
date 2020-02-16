@@ -16,7 +16,7 @@
 ### Architecture
 
 - [x] Units should be autoimported
-- [ ] A single unit can be run
+- [x] A single unit can be run
 - [x] Running selected categories
 - [ ] Units can implement custom arguments
 - [x] All units must inherit from a template
