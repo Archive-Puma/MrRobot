@@ -86,21 +86,22 @@ def parse():
         action="store",
         help="Load an specific unit (Format: category.unit)"
     )
+    # ------- Categories
     # Crypto
     units.add_argument(
-        "-uc", "--crypto",
+        "--crypto",
         action="store_true",
         help="Load crypto units"
     )
     # Esoteric
     units.add_argument(
-        "-ue", "--esoteric",
+        "--esoteric",
         action="store_true",
         help="Load esoteric units"
     )
     # Forensics
     units.add_argument(
-        "-uf", "--forensics",
+        "--forensics",
         action="store_true",
         help="Load forensics units"
     )
