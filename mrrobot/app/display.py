@@ -43,7 +43,7 @@ def flag(result:tuple) -> None:
         good(f"Flag found!")
         normal(f"Category:\t{category}")
         normal(f"Unit:\t{name}")
-        normal(f"Flag:\t{result[0]}")
         if additional_data:
-            for key,data in additional_data: normal(f"-- {key}: {data}")
+            for key,data in additional_data: normal(f"\b---- {key}: {data}")
+        normal(f"Flag:\t{result[0]}")
     else: error("Flag not found")

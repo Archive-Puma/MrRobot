@@ -15,7 +15,7 @@ class Configuration:
         # Public attributes
         self.ENABLED_UNITS  :list   = [ True for _ in self.__AVAILABLE_UNITS ]
         self.ENCODING       :str    = self.__VALID_ENCODINGS[0]
-        self.FLAG           :str    = "MrRobotCTF{.*}"
+        self.FLAG           :str    = "MrRobotCTF{.*?}"
         self.ONLYENABLED    :str    = None
         self.TIMEOUT        :float  = 10.0
         
