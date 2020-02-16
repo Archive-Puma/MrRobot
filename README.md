@@ -4,6 +4,17 @@
   <img src=".github/readme/logo.png" alt="Logo" width="600">
 </h1>
 
+:octopus: Support the developer!
+----
+Everything I do and publish can be used for free whenever I receive my corresponding merit.
+
+Anyway, if you want to help me in a more direct way, you can leave me a tip by clicking on this badge:
+
+<p align="center">
+    </br>
+    <a href="https://www.paypal.me/cosasdepuma/"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=for-the-badge" alt="PayPal Donation"></a>
+</p>
+
 ## :wrench: Implementations
 
 ### Design
