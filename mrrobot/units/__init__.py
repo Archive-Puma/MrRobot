@@ -41,7 +41,7 @@ class UnitBase(ABC):
         if not self._NOPROCESS:
             if self._RAWMODE: self.CODE = self._RAW
             else:
-                challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else self._RAW
+                challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else bytes(self._RAW,encoding=self._CONFIG.ENCODING)
                 # Filter using regular expressions
                 regex = re.compile(self._REGEX)
                 finds = regex.findall(challenge)
@@ -81,6 +81,7 @@ class UnitBase(ABC):
             # Compile the pattern
             pattern:re.Pattern = re.compile(bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING))
             # Search any flag
+            if type(result) is str: result = bytes(result,encoding=self._CONFIG.ENCODING)
             filtered:list = pattern.findall(result)
             # Check if a flag was in
             if len(filtered) > 0:
