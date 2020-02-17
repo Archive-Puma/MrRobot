@@ -41,7 +41,8 @@ class UnitBase(ABC):
         if not self._NOPROCESS:
             if self._RAWMODE: self.CODE = self._RAW
             else:
-                challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else bytes(self._RAW,encoding=self._CONFIG.ENCODING)
+                challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else self._RAW
+                if type(challenge) is str: challenge = bytes(challenge,encoding=self._CONFIG.ENCODING)
                 # Filter using regular expressions
                 regex = re.compile(self._REGEX)
                 finds = regex.findall(challenge)

@@ -18,8 +18,14 @@
 
 ## Performance
 
+- [ ] Decompress challenges 
 - [x] It is necessary to implement multiprocessing
 - [ ] Multiprocessing is executed through priorities
 - [x] When a process ends successfully, everyone ends
 - [x] It must be possible to run using an *inside* search method: `FLAG{challenge}`
 - [x] Should be a *show all results* option
+
+## Refractor & Bugs
+
+- [ ] Create new UnitBase method to convert always to bytes
+- [ ] PIL check if is an image

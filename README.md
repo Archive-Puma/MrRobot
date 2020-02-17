@@ -4,8 +4,9 @@
   <img src=".github/readme/logo.png" alt="Logo" width="600">
 </h1>
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mrrobot?logo=python&logoColor=lightblue&style=for-the-badge)
-![PyPI - Latest Version](https://img.shields.io/pypi/v/mrrobot?label=latest&style=for-the-badge)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mrrobot?logo=python&logoColor=lightblue&style=for-the-badge)](https://www.python.org/)
+[![PyPI - Latest Version](https://img.shields.io/pypi/v/mrrobot?label=latest&style=for-the-badge)](https://pypi.org/project/mrrobot/)
+[![License](https://img.shields.io/github/license/cosasdepuma/mrrobot?style=for-the-badge)](./LICENSE)
 
 **MrRobot** is that friend you needed so much by your side during the `CTFs`. Not only does it help you to perform the tests, but it will also look for ways to solve them for you.
 
