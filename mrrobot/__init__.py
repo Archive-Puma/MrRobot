@@ -9,6 +9,8 @@ from time import perf_counter
 from multiprocessing import Pipe
 
 def main(processes:list) -> None:
+    # Check dependencies
+    app.check_requirements()
     # Start the performance counter
     start_time:float = perf_counter()
     # Create the connection between processes

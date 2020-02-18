@@ -7,7 +7,6 @@ license = "GPL-3.0"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-argparse = "1.4.0"
 pillow = "7.0.0"
 
 [tool.poetry.dev-dependencies]

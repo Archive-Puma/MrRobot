@@ -16,6 +16,14 @@ def arguments() -> tuple:
         with open(arguments.input,"rb") as f: contents = f.read()
     return arguments,contents
 
+def check_requirements() -> None:
+    # argparse
+    try:        import argparse; del argparse
+    except      ImportError: raise Elliot("Module argparse is not installed")
+    # PIL (Pillow)
+    try:        import PIL; del PIL
+    except      ImportError: raise Elliot("Module Pillow is not installed")
+
 def configuration(args) -> Configuration:
     # Create the configurator
     configuration:Configuration = Configuration()
