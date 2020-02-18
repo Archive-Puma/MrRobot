@@ -7,6 +7,7 @@ class Unit(UnitBase):
         super().__init__(config=config,pipe=pipe,lock=lock)
         self.ID     = ("crypto","caesar")
         self._REGEX = rb"([ -~]+)"
+        # Private attributes
         self.__LOWER = ascii_lowercase
         self.__UPPER = ascii_lowercase.upper()
     

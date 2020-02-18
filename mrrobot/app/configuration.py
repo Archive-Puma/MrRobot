@@ -19,6 +19,7 @@ class Configuration:
         self.FLAG           :str    = "MrRobotCTF{.*?}"
         self.INSIDE         :bool   = False
         self.ONLYENABLED    :str    = None
+        self.SAFE           :bool   = False
         self.TIMEOUT        :float  = 10.0
         
     # ---x--- Public methods ---x---
@@ -44,6 +45,20 @@ class Configuration:
                 for unit in challenge["units"]: self.enable_category(unit)
                 
     # --- Setters
+    
+    def check_category(self,name:str) -> None:
+        idx = self.__AVAILABLE_UNITS.index(name)
+        return idx != -1 and self.ENABLED_UNITS[idx]
+
+    def enable_category(self,name:str) -> None:
+        idx = self.__AVAILABLE_UNITS.index(name)
+        if idx != -1: self.ENABLED_UNITS[idx] = True
+    
+    def enable_only(self,name:str) -> None:
+        self.ONLYENABLED = name
+
+    def set_all_categories(self,enabled:bool=False) -> None:
+        self.ENABLED_UNITS:list = [ enabled for _ in self.__AVAILABLE_UNITS ]
 
     def set_encoding(self,encoding:str=None) -> None:
         if encoding:
@@ -59,22 +74,11 @@ class Configuration:
     def set_inside(self,inside:bool=False) -> None:
         if inside: self.INSIDE = inside
 
+    def set_safe(self,safe:bool=False) -> None:
+        self.SAFE = safe
+
     def set_timeout(self,timeout:float=None) -> None:
         if timeout: self.TIMEOUT = timeout
-
-    def set_all_categories(self,enabled:bool=False) -> None:
-        self.ENABLED_UNITS:list = [ enabled for _ in self.__AVAILABLE_UNITS ]
-
-    def enable_category(self,name:str) -> None:
-        idx = self.__AVAILABLE_UNITS.index(name)
-        if idx != -1: self.ENABLED_UNITS[idx] = True
-
-    def check_category(self,name:str) -> None:
-        idx = self.__AVAILABLE_UNITS.index(name)
-        return idx != -1 and self.ENABLED_UNITS[idx]
-
-    def enable_only(self,name:str) -> None:
-        self.ONLYENABLED = name
 
     # ---x--- Private methods ---x---
 

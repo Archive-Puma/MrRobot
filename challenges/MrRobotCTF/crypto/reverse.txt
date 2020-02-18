@@ -1,9 +1,9 @@
 MrRobotCTF: Reverse || Crypto
 
-    }Ll4W3hTn0_Rorr1m_R0RR1M{FTCtoboRrM saw egassem eht
-    ,was I eno tsal eht nI .srorrim ni segassem neddih
-    etirw srellik laires nehw gniticxe yllaer ti dnif I
-    ,lla evobA .etirw yeht nehw gnitseretni etiuq dnif I
-    .seivom rorroh ekil yllaer I
+    I really like horror movies. Above all, I find quite
+    interesting when they write hidden messages in mirrors.
+    In the last one I saw, the message was:
+    
+        MrRobotCTF{Ll4W3hTn0_Rorr1m_R0RR1M}
 
 Flag prefix: MrRobotCTF

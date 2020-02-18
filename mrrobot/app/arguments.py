@@ -40,6 +40,11 @@ def parse():
         metavar="FLAG",
         action="store",
         help="Specify the regex-based flag format (Default: MrRobotCTF{.*})")
+    # Flag format
+    challenge.add_argument(
+        "--safe",
+        action="store_true",
+        help="Specify to avoid units that generate false positives")
     # ---- Performance
     performance = parser.add_argument_group(title="configuration")
     # Clean

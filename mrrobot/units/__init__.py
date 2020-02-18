@@ -18,11 +18,12 @@ class UnitBase(ABC):
         self._RAWMODE   = False
         self._FILENAME  = None
         self._NOPROCESS = False
+        self._UNSAFE    = False
         # Multiprocessing
         self._LOCK      = lock
         self._PIPE      = pipe
         self._PRIORITY  = 50 # TODO: Implement priority
-    
+
     # --- Multiprocessing-based methods ---
 
     def __send(self, response, additional_data:list=None) -> None:
@@ -39,10 +40,10 @@ class UnitBase(ABC):
     
     def clean(self, returntype:type=list) -> object:
         if not self._NOPROCESS:
-            if self._RAWMODE: self.CODE = self._RAW
+            challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else self._RAW
+            if type(challenge) is str: challenge = bytes(challenge,encoding=self._CONFIG.ENCODING)
+            if self._RAWMODE: self.CODE = challenge
             else:
-                challenge = self.__inside_challenge(self._RAW) if self._CONFIG.INSIDE else self._RAW
-                if type(challenge) is str: challenge = bytes(challenge,encoding=self._CONFIG.ENCODING)
                 # Filter using regular expressions
                 regex = re.compile(self._REGEX)
                 finds = regex.findall(challenge)
@@ -93,9 +94,16 @@ class UnitBase(ABC):
         return found
 
     def _is_valid(self) -> bool:
+        validity = True
         self.__verbose("Checking")
+        # Length
+        validity &= len(self.CODE) > 0
+        # No process
+        validity |= bool(self._NOPROCESS and self._FILENAME)
+        # Unsafe
+        if self._CONFIG.SAFE and not self._CONFIG.INSIDE: validity &= not self._UNSAFE
         # Check the length of the code
-        return len(self.CODE) > 0 or (self._NOPROCESS and self._FILENAME)
+        return validity
 
     # --- Private methods ---
 
