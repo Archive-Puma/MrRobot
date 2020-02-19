@@ -1,3 +1,5 @@
+from mrrobot.app.exception import Elliot
+
 import pkgutil
 from os import path
 from pathlib import Path
@@ -14,6 +16,10 @@ class UnitLoader:
         for (_,category,_) in pkgutil.iter_modules([self.__UNITS_FOLDER]):
             if config.check_category(category):
                 units[category] = self.__load_category(category,config.ONLYENABLED)
+        if config.ONLYENABLED:
+            category = next(iter(units.keys()))
+            if len(units[category]) == 0:
+                raise Elliot(f"Unit '{category}.{config.ONLYENABLED}' does not exist")
         return units
 
     def __load_category(self,category:str,only:str=None) -> dict:

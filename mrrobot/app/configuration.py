@@ -51,8 +51,10 @@ class Configuration:
         return idx != -1 and self.ENABLED_UNITS[idx]
 
     def enable_category(self,name:str) -> None:
-        idx = self.__AVAILABLE_UNITS.index(name)
-        if idx != -1: self.ENABLED_UNITS[idx] = True
+        if name in self.__AVAILABLE_UNITS:
+            idx = self.__AVAILABLE_UNITS.index(name)
+            if idx != -1: self.ENABLED_UNITS[idx] = True
+        else: raise Elliot(f"Category '{name}' does not exist")
     
     def enable_only(self,name:str) -> None:
         self.ONLYENABLED = name

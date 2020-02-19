@@ -68,8 +68,8 @@ class UnitBase(ABC):
             if self._is_valid():
                 self.__verbose("Running",decorator='+')
                 self.evaluate()
-        except KeyboardInterrupt:
-            pass
+        except KeyboardInterrupt: pass
+        except: pass
 
     # --- Protected methods ---
 
@@ -108,6 +108,7 @@ class UnitBase(ABC):
     # --- Private methods ---
 
     def __inside_challenge(self,raw:bytes) -> bytes:
+        raw = bytes(raw,encoding=self._CONFIG.ENCODING) if type(raw) is str else raw
         flagformat = bytes(self._CONFIG.FLAG,encoding=self._CONFIG.ENCODING)
         pattern = re.compile(flagformat)
         flags = pattern.findall(raw)

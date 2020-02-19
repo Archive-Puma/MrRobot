@@ -65,6 +65,7 @@ def search(processes:list,pipe:Pipe,start:float=None,timeout:float=None) -> tupl
     while len(active_children()) > 0 and not istimeout(start,timeout):
         if pipe.poll(): return pipe.recv()
     if pipe.poll(timeout=0.0001): return pipe.recv()
+    if istimeout(start,timeout): raise Elliot("Timeout reached")
 
 def terminate(processes:list) -> None:
     for process in processes: process.terminate()

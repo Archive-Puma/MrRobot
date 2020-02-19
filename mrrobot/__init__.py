@@ -28,7 +28,6 @@ def main(processes:list) -> None:
         result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
         if args.find_all and result: app.display.flag(result)
         else: continous = False
-    app.terminate(processes)
     if not args.find_all: app.display.flag(result)
     app.display.performance(start_time)
 
@@ -40,6 +39,8 @@ def entrypoint() -> None:
         app.display.error(problem)
     except KeyboardInterrupt:
         app.display.error("The world is a dangerous place, Elliot...")
+    finally:
+        app.display.info("Cleanning processes...",decorator="*")
         app.terminate(processes)
 
 if __name__ == "__main__":

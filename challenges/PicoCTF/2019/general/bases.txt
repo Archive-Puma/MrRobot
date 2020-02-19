@@ -1,0 +1,6 @@
+PicoCTF 2019: Bases || General Skills (100)
+    
+    What does this mean? I think it has something to do with bases.
+        picoCTF{bDNhcm5fdGgzX3IwcDM1}
+
+Flag prefix: picoCTF
