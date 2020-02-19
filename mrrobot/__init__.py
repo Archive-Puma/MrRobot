@@ -28,6 +28,7 @@ def main(processes:list) -> None:
         result:tuple = app.search(processes,pipe=conn_parent,start=start_time,timeout=config.TIMEOUT)
         if args.find_all and result: app.display.flag(result)
         else: continous = False
+    app.terminate(processes)
     if not args.find_all: app.display.flag(result)
     app.display.performance(start_time)
 
