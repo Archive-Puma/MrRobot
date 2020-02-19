@@ -13,7 +13,7 @@ class Unit(UnitBase):
     
     def evaluate(self) -> bool:
         found = False
-        for key in range(len(self.__LOWER)):
+        for key in range(1,len(self.__LOWER)):
             result = self.__caesar(key=key)
             found &= self._check(result, [("Key",key)])
         return found
