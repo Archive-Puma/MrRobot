@@ -29,5 +29,5 @@
 
 - [x] Check imports
 - [ ] Create new UnitBase method to convert always to bytes
-- [ ] PIL check if is an image
+- [x] PIL check if is an image
 - [x] Create --safe to units that generates a lot of false positives
