@@ -5,8 +5,9 @@ from setuptools import setup, find_packages
 REPOSITORY:str = "https://www.github.com/cosasdepuma/mrrobot"
 
 def readme() -> str:
-    with open("README.md","r") as README:
-        return README.read()
+    with open("README.md","rb") as README:
+        str(README.read(),encoding="utf-8") # FIXME: Valid README
+    return "MrRobot"
 
 def requirements() -> list:
     with open("requirements.txt","r") as dependencies:
@@ -14,7 +15,7 @@ def requirements() -> list:
 
 setup(
     name='mrrobot',
-    version='1.0.0',
+    version='1.0.3',
     description='Just another robot to automate the hacking process',
     long_description=readme(),
     long_description_content_type="text/markdown",

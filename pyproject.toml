@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mrrobot"
-version = "1.0.0"
+version = "1.0.0a"
 description = "Just another robot to automate the hacking process"
 authors = ["Kike Fontán <kikefontanlorenzo@gmail.com>"]
 license = "GPL-3.0"
@@ -12,6 +12,7 @@ pillow = "7.0.0"
 [tool.poetry.dev-dependencies]
 setuptools = "^45.2.0"
 twine = "^3.1.1"
+wheel = "^0.34.2"
 
 [build-system]
 requires = ["poetry>=0.12"]

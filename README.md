@@ -15,18 +15,18 @@
 To install the tool, the easiest way is to use the `pip` command:
 
 ```sh
-pip install mrrobot
+python -m pip install mrrobot
 ```
 
 In case you need to perform a manual installation, you can use any of the `.egg` or `.whl` files inside the `dist/` folder:
 
 ```sh
 # Old method
-pip -m easy_install dist/mrrobot-x.x.x-py3.x.egg
+python -m easy_install dist/mrrobot-x.x.x-py3.egg
 ```
 ```sh
 # New method
-pip install mrrobot-x.x.x-py3-none-any.whl
+python -m pip install mrrobot-x.x.x-py3-none-any.whl
 ```
 
 But if this does not convince you because you are in **paranoid** mode (`MrRobot` is still a hacking tool), you can install it directly from the source code using the `setup.py` file:

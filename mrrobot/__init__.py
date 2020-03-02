@@ -40,9 +40,6 @@ def entrypoint() -> None:
         app.display.error(problem)
     except KeyboardInterrupt:
         app.display.error("The world is a dangerous place, Elliot...")
-    finally:
-        app.display.info("Cleanning processes...",decorator="*")
-        app.terminate(processes)
 
 if __name__ == "__main__":
     entrypoint()
