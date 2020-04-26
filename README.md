@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src=".github/readme/elliot.gif" alt="Elliot" width="500">
+  <img src=".github/readme/mrrobot.gif" alt="Elliot" width="500">
   <br><br>
   <img src=".github/readme/logo.png" alt="Logo" width="600">
 </h1>
